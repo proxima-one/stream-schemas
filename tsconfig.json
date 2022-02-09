@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "lib": [
+      "ES2019"
+    ],
+    "resolveJsonModule": true,
+    "target": "ES2019",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "declarationMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "./packages",
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true,
+    "paths": {
+      "@proxima-one/stream-schema-*": [
+        "*/src"
+      ]
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*",
+    "src/**/*.json"
+  ],
+  "files": [],
+  "references": [
+    {
+      "path": "packages/base"
+    },
+    {
+      "path": "packages/ft"
+    }
+  ]
+}
