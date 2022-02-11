@@ -35,6 +35,7 @@ interface EventStreamProcessSchema<T> {
 - name: descriptive stream name 
 - version: string that describes current version of stream
 - serdes: serialization of the current stream
+- type: represents an enum for StreamType [SOURCE, STATELESS, STATEFUL, QUERY]
 
 ```typescript
 interface EventStreamSchema<T> {
