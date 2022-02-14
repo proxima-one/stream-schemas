@@ -2,7 +2,7 @@ import * as events from "./events";
 import { EventStreamSchema, serializers } from "@proxima-one/stream-schema-base";
 import { BlockchainReference } from "./model";
 
-type FungibleTokenStreamEvent =
+export type FungibleTokenStreamEvent =
   | events.NewToken
   | events.Approval
   | events.Transfer & {
