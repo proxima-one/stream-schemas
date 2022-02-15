@@ -20,8 +20,8 @@ export type FungibleTokenDiscoveryStreamEvent =
   ref?: BlockchainReference
 };
 
-export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenStreamEvent> = {
+export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
   name: "fungible-token-discovery.streams.proxima.one",
-  serdes: serializers.json<FungibleTokenStreamEvent>(),
+  serdes: serializers.json<FungibleTokenDiscoveryStreamEvent>(),
   version: "0.1",
 }
