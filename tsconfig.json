@@ -36,7 +36,7 @@
       "path": "packages/base"
     },
     {
-      "path": "packages/ft"
+      "path": "packages/fungible-token"
     }
   ]
 }

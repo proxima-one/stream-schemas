@@ -2,9 +2,9 @@ import { Serdes } from "./serialization";
 
 export interface NodePackageSchema<T> {
   type: "npm";
-  id: string;
   name: string;
   version: string;
+  package: string;
   serdes: Serdes<T>;
 }
 
