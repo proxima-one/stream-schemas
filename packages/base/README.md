@@ -66,3 +66,21 @@ interface EventStreamSchema<T> {
 }
 ```
 
+### Example 
+
+```typescript
+export type FungibleTokenDiscoveryStreamEvent =
+  | events.NewToken & {
+  ref?: BlockchainReference
+};
+
+export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
+  type: "npm",
+  name: "fungible-token-discovery.streams.proxima.one",
+  package: "@proxima-one/stream-schema-fungible-token",
+  serdes: serializers.json<FungibleTokenDiscoveryStreamEvent>(),
+  version: "0.1.0",
+}
+```
+
+
