@@ -7,7 +7,9 @@ type FungibleTokenStreamEvent =
   | events.Transfer;
 
 export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
+  type: "npm",
+  id: "@proxima-one/stream-schema-fungible-token",
   name: "ft.streams.proxima.one",
   serdes: serializers.json<FungibleTokenStreamEvent>(),
-  version: "0.1",
+  version: "0.1.0",
 }
