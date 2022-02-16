@@ -52,15 +52,16 @@ interface EventStream {
 - id: unique stream identifier
 - name: descriptive stream name 
 - version: string that describes current version of schema
+- package: name of the package
 - serdes: serialization of the current stream
 - type: represents an enum for StreamType [npm]
 
 ```typescript
 interface EventStreamSchema<T> {
-  id: string;
   name: string;
   version: string;
   type: SchemaType;
+  package: string;
   serdes: Serdes<T>;
 }
 ```
