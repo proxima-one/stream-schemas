@@ -16,13 +16,13 @@ Stream processes are defined as in the following schema.
 
 
 ```typescript
-interface EventStreamProcessSchema<T> {
+interface EventStreamProcess {
   id: string;
   name: string;
   owner: string;
   version: string;
-  input_streams: Array<EventStreamProcessSchema<T>>;
-  output_streams: Array<EventStreamProcessSchema<T>>;
+  input_streams: Array<EventStreamProcess>;
+  output_streams: Array<EventStreamProcess>;
   container_id: string; 
   build: string;
 }
@@ -38,12 +38,29 @@ interface EventStreamProcessSchema<T> {
 - type: represents an enum for StreamType [SOURCE, STATELESS, STATEFUL, QUERY]
 
 ```typescript
-interface EventStreamSchema<T> {
+interface EventStream {
   id: string;
   process_id: string;
   name: string;
-  version: string;
   type: StreamType;
-  serdes: Serdes<T>;
+  schema_uri: string;
 }
 ```
+
+### Event Stream Schema
+
+- id: unique stream identifier
+- name: descriptive stream name 
+- version: string that describes current version of schema
+- serdes: serialization of the current stream
+- type: represents an enum for StreamType [SOURCE, STATELESS, STATEFUL, QUERY]
+
+```typescript
+interface EventStreamSchema {
+  id: string;
+  name: string;
+  version: string;
+  type: SchemaType;
+}
+```
+

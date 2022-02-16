@@ -1,5 +1,23 @@
 import { Serdes } from "./serialization";
 
+export interface NodePackageSchema<T> {
+  type: "npm";
+  id: string;
+  name: string;
+  version: string;
+  serdes: Serdes<T>;
+}
+
+// export interface JsonSchema {
+//   type: "json";
+//   id: string;
+//   name: string;
+//   version: string;
+// }
+
+export type EventStreamSchema<T> = NodePackageSchema<T>
+
+
 export enum StreamType {
   STATELESS,
   STATEFUL,
@@ -7,22 +25,21 @@ export enum StreamType {
   SOURCE
 }
 
-export interface EventStreamSchema<T> {
+export interface EventStream {
   id: string;
   process_id: string;
   name: string;
-  version: string;
   type: StreamType;
-  serdes: Serdes<T>;
+  schema: string;
 }
 
-export interface EventStreamProcessSchema<T> {
+export interface EventStreamProcessSchema {
   id: string;
   name: string;
   owner: string;
   version: string;
-  input_streams: Array<EventStreamProcessSchema<T>>;
-  output_streams: Array<EventStreamProcessSchema<T>>;
+  input_streams: Array<EventStreamProcessSchema>;
+  output_streams: Array<EventStreamProcessSchema>;
   container_id: string; 
   build: string;
 }
