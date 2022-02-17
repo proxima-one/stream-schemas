@@ -10,9 +10,7 @@ export type FungibleTokenStreamEvent =
 };
 
 export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
-  type: "npm",
   name: "fungible-token.streams.proxima.one",
-  package: "@proxima-one/stream-schema-fungible-token",
   serdes: serializers.json<FungibleTokenStreamEvent>(),
   version: "0.1.0",
 }
@@ -23,9 +21,7 @@ export type FungibleTokenDiscoveryStreamEvent =
 };
 
 export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
-  type: "npm",
   name: "fungible-token-discovery.streams.proxima.one",
-  package: "@proxima-one/stream-schema-fungible-token",
   serdes: serializers.json<FungibleTokenDiscoveryStreamEvent>(),
   version: "0.1.0",
 }

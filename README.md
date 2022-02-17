@@ -1,4 +1,4 @@
-# Base Stream Schema
+#  Stream Schema
 
 Stream processes are defined as in the following schema.
 
@@ -49,14 +49,12 @@ interface EventStream {
 
 ### Event Stream Schema
 
-- id: unique stream identifier
 - name: descriptive stream name 
 - version: string that describes current version of schema
 - serdes: serialization of the current stream
-- type: represents an enum for StreamType [npm]
 
 ```typescript
-interface EventStreamSchema<T> {
+interface Schema<T> {
   name: string;
   version: string;
   serdes: Serdes<T>;

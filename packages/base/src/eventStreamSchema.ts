@@ -1,21 +1,19 @@
 import { Serdes } from "./serialization";
 
-export interface NodePackageSchema<T> {
-  type: "npm";
+export interface Schema<T> {
   name: string;
   version: string;
-  package: string;
   serdes: Serdes<T>;
 }
 
-// export interface JsonSchema {
-//   type: "json";
-//   id: string;
-//   name: string;
-//   version: string;
-// }
+export interface SchemaMeta {
+  type: string;
+  name: string;
+  uri: string;
+  version: string;
+}
 
-export type EventStreamSchema<T> = NodePackageSchema<T>
+export type EventStreamSchema<T> = Schema<T>
 
 
 export enum StreamType {
