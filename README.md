@@ -72,3 +72,17 @@ interface Schema<T> {
 }
 ```
 
+### Example 
+
+```typescript
+export type FungibleTokenDiscoveryStreamEvent =
+  | events.NewToken & {
+  ref?: BlockchainReference
+};
+
+export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
+  name: "fungible-token-discovery.streams.proxima.one",
+  serdes: serializers.json<FungibleTokenDiscoveryStreamEvent>(),
+  version: "0.1.0",
+}
+
