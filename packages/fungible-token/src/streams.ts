@@ -1,12 +1,12 @@
 import * as events from "./events";
 import { EventStreamSchema, serializers } from "@proxima-one/stream-schema-base";
-import { BlockchainReference } from "./model";
+import { ChainReference } from "./model";
 
 export type FungibleTokenStreamEvent =
   | events.NewToken
   | events.Approval
   | events.Transfer & {
-  ref?: BlockchainReference
+  ref?: ChainReference
 };
 
 export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
@@ -17,7 +17,7 @@ export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
 
 export type FungibleTokenDiscoveryStreamEvent =
   | events.NewToken & {
-  ref?: BlockchainReference
+  ref?: ChainReference
 };
 
 export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
