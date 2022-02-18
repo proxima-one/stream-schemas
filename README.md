@@ -47,6 +47,17 @@ interface EventStream {
 }
 ```
 
+### Schema URI 
+
+```typescript
+interface SchemaMeta {
+  type: string;
+  name: string;
+  uri: string;
+  version: string;
+}
+```
+
 ### Event Stream Schema
 
 - name: descriptive stream name 
