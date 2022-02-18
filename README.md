@@ -1,4 +1,4 @@
-# Base Stream Schema
+#  Stream Schema
 
 Stream processes are defined as in the following schema.
 
@@ -47,21 +47,27 @@ interface EventStream {
 }
 ```
 
-### Event Stream Schema
-
-- id: unique stream identifier
-- name: descriptive stream name 
-- version: string that describes current version of schema
-- package: name of the package
-- serdes: serialization of the current stream
-- type: represents an enum for StreamType [npm]
+### Schema URI 
 
 ```typescript
-interface EventStreamSchema<T> {
+interface SchemaMeta {
+  type: string;
+  name: string;
+  uri: string;
+  version: string;
+}
+```
+
+### Event Stream Schema
+
+- name: descriptive stream name 
+- version: string that describes current version of schema
+- serdes: serialization of the current stream
+
+```typescript
+interface Schema<T> {
   name: string;
   version: string;
-  type: SchemaType;
-  package: string;
   serdes: Serdes<T>;
 }
 ```
@@ -75,12 +81,8 @@ export type FungibleTokenDiscoveryStreamEvent =
 };
 
 export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
-  type: "npm",
   name: "fungible-token-discovery.streams.proxima.one",
-  package: "@proxima-one/stream-schema-fungible-token",
   serdes: serializers.json<FungibleTokenDiscoveryStreamEvent>(),
   version: "0.1.0",
 }
-```
-
 
