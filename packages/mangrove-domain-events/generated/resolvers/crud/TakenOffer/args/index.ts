@@ -1,0 +1,12 @@
+export { AggregateTakenOfferArgs } from "./AggregateTakenOfferArgs";
+export { CreateManyTakenOfferArgs } from "./CreateManyTakenOfferArgs";
+export { CreateTakenOfferArgs } from "./CreateTakenOfferArgs";
+export { DeleteManyTakenOfferArgs } from "./DeleteManyTakenOfferArgs";
+export { DeleteTakenOfferArgs } from "./DeleteTakenOfferArgs";
+export { FindFirstTakenOfferArgs } from "./FindFirstTakenOfferArgs";
+export { FindManyTakenOfferArgs } from "./FindManyTakenOfferArgs";
+export { FindUniqueTakenOfferArgs } from "./FindUniqueTakenOfferArgs";
+export { GroupByTakenOfferArgs } from "./GroupByTakenOfferArgs";
+export { UpdateManyTakenOfferArgs } from "./UpdateManyTakenOfferArgs";
+export { UpdateTakenOfferArgs } from "./UpdateTakenOfferArgs";
+export { UpsertTakenOfferArgs } from "./UpsertTakenOfferArgs";

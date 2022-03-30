@@ -1,0 +1,12 @@
+export { AggregateMangroveArgs } from "./AggregateMangroveArgs";
+export { CreateMangroveArgs } from "./CreateMangroveArgs";
+export { CreateManyMangroveArgs } from "./CreateManyMangroveArgs";
+export { DeleteMangroveArgs } from "./DeleteMangroveArgs";
+export { DeleteManyMangroveArgs } from "./DeleteManyMangroveArgs";
+export { FindFirstMangroveArgs } from "./FindFirstMangroveArgs";
+export { FindManyMangroveArgs } from "./FindManyMangroveArgs";
+export { FindUniqueMangroveArgs } from "./FindUniqueMangroveArgs";
+export { GroupByMangroveArgs } from "./GroupByMangroveArgs";
+export { UpdateMangroveArgs } from "./UpdateMangroveArgs";
+export { UpdateManyMangroveArgs } from "./UpdateManyMangroveArgs";
+export { UpsertMangroveArgs } from "./UpsertMangroveArgs";

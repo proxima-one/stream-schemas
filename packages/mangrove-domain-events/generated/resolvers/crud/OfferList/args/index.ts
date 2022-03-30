@@ -1,0 +1,12 @@
+export { AggregateOfferListArgs } from "./AggregateOfferListArgs";
+export { CreateManyOfferListArgs } from "./CreateManyOfferListArgs";
+export { CreateOfferListArgs } from "./CreateOfferListArgs";
+export { DeleteManyOfferListArgs } from "./DeleteManyOfferListArgs";
+export { DeleteOfferListArgs } from "./DeleteOfferListArgs";
+export { FindFirstOfferListArgs } from "./FindFirstOfferListArgs";
+export { FindManyOfferListArgs } from "./FindManyOfferListArgs";
+export { FindUniqueOfferListArgs } from "./FindUniqueOfferListArgs";
+export { GroupByOfferListArgs } from "./GroupByOfferListArgs";
+export { UpdateManyOfferListArgs } from "./UpdateManyOfferListArgs";
+export { UpdateOfferListArgs } from "./UpdateOfferListArgs";
+export { UpsertOfferListArgs } from "./UpsertOfferListArgs";

@@ -1,0 +1,12 @@
+export { AggregateTakerApprovalArgs } from "./AggregateTakerApprovalArgs";
+export { CreateManyTakerApprovalArgs } from "./CreateManyTakerApprovalArgs";
+export { CreateTakerApprovalArgs } from "./CreateTakerApprovalArgs";
+export { DeleteManyTakerApprovalArgs } from "./DeleteManyTakerApprovalArgs";
+export { DeleteTakerApprovalArgs } from "./DeleteTakerApprovalArgs";
+export { FindFirstTakerApprovalArgs } from "./FindFirstTakerApprovalArgs";
+export { FindManyTakerApprovalArgs } from "./FindManyTakerApprovalArgs";
+export { FindUniqueTakerApprovalArgs } from "./FindUniqueTakerApprovalArgs";
+export { GroupByTakerApprovalArgs } from "./GroupByTakerApprovalArgs";
+export { UpdateManyTakerApprovalArgs } from "./UpdateManyTakerApprovalArgs";
+export { UpdateTakerApprovalArgs } from "./UpdateTakerApprovalArgs";
+export { UpsertTakerApprovalArgs } from "./UpsertTakerApprovalArgs";
