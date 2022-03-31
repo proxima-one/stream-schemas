@@ -1,5 +1,5 @@
 {
-  "name": "@proxima-one/stream-schema-mangrove",
+  "name": "@proximaone/stream-schema-mangrove",
   "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",

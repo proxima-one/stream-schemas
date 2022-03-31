@@ -1,5 +1,5 @@
 {
-  "name": "@proxima-one/stream-schema-fungible-token",
+  "name": "@proximaone/stream-schema-fungible-token",
   "version": "0.1.5",
   "description": "",
   "main": "dist/index.js",
