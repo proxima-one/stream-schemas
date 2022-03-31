@@ -8,7 +8,7 @@
     "dist",
     "lib"
   ],
-  "repository": "https://github.com/proxima-one/proxima-npm",
+  "repository": "https://github.com/proxima-one/stream-schemas",
   "jest": {
     "preset": "<rootDir>/../../"
   },
