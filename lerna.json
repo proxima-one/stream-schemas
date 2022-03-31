@@ -2,5 +2,10 @@
   "version": "independent",
   "npmClient": "yarn",
   "npmClientArgs": ["--no-lockfile"],
-  "useWorkspaces": true
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "noVerifyAccess": true
+    }
+  }
 }
