@@ -37,6 +37,9 @@
     },
     {
       "path": "packages/fungible-token"
+    },
+    {
+      "path": "packages/mangrove"
     }
   ]
 }

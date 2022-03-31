@@ -1,0 +1,33 @@
+{
+  "name": "@proxima-one/stream-schema-mangrove",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "repository": "https://github.com/proxima-one/proxima-npm",
+  "jest": {
+    "preset": "<rootDir>/../../"
+  },
+  "author": "proxima.one",
+  "license": "MIT",
+  "scripts": {
+    "prepack": "yarn build",
+    "dev": "ts-node src/index.ts test",
+    "build": "yarn clean && yarn compile && yarn copy-content-files",
+    "clean": "rimraf -rf dist && rimraf tsconfig.tsbuildinfo",
+    "copy-content-files": "copyfiles -u 1 src/**/*.proto dist/",
+    "compile": "tsc --build",
+    "test": "yarn jest"
+  },
+  "dependencies": {
+    "@proxima-one/stream-schema-base": "^0.1.2"
+  },
+  "devDependencies": {
+    "copyfiles": "^2.4.1"
+  },
+  "gitHead": "b828fa884432fe41e4a393a7f8ff854d55743fc6"
+}
