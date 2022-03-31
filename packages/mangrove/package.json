@@ -1,6 +1,6 @@
 {
   "name": "@proximaone/stream-schema-mangrove",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,7 @@
     "test": "yarn jest"
   },
   "dependencies": {
-    "@proximaone/stream-schema-base": "^0.1.9"
+    "@proximaone/stream-schema-base": "^0.1.10"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1"
