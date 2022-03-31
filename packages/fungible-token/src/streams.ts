@@ -1,5 +1,5 @@
 import * as events from "./events";
-import { EventStreamSchema, serializers } from "@proxima-one/stream-schema-base";
+import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
 import { ChainReference } from "./model";
 
 export type FungibleTokenStreamEvent =

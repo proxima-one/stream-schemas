@@ -1,6 +1,6 @@
 {
   "name": "@proximaone/stream-schema-generic-dex",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,10 +24,10 @@
     "test": "yarn jest"
   },
   "dependencies": {
-    "@proxima-one/stream-schema-base": "^0.1.1"
+    "@proximaone/stream-schema-base": "^0.1.3"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1"
   },
-  "gitHead": "b828fa884432fe41e4a393a7f8ff854d55743fc6"
+  "gitHead": "3fc547fd1c8606be88c650c38b865fe294743450"
 }

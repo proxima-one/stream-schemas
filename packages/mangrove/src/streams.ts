@@ -1,7 +1,7 @@
 import * as eth from "./eth";
 import * as core from "./core";
 import { MangroveEvent } from "./events";
-import { EventStreamSchema, serializers } from "@proxima-one/stream-schema-base";
+import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
 
 export type MangroveStreamEvent = MangroveEvent & {
   tx?: eth.TransactionRef;
