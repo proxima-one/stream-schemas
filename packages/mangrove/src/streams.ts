@@ -4,8 +4,8 @@ import { MangroveEvent } from "./events";
 import { EventStreamSchema, serializers } from "@proxima-one/stream-schema-base";
 
 export type MangroveStreamEvent = MangroveEvent & {
-  tx: eth.TransactionRef;
-  mangroveId: core.MangroveId; //support multiple instances in the same event stream
+  tx?: eth.TransactionRef;
+  mangroveId?: core.MangroveId;
 };
 
 export const mangrove: EventStreamSchema<MangroveStreamEvent> = {

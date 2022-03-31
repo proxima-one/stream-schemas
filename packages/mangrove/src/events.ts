@@ -5,11 +5,12 @@ export type MangroveEvent = (
   | TakerApprovalUpdated
   | MakerBalanceUpdated
   | OfferListParamsUpdated
+  | MangroveCreated
   | MangroveParamsUpdated
   | OfferWritten
   | OfferRetracted
   | OrderCompleted
-) & {
+  ) & {
   parentOrderId?: core.OrderId; // not empty in case event is emitted in callback/posthook functions
 };
 
@@ -40,6 +41,17 @@ export interface MangroveParamsUpdated {
   type: "MangroveParamsUpdated";
 
   params: core.MangroveParams;
+}
+
+export interface MangroveCreated {
+  type: "MangroveCreated";
+
+  id: string;
+  chain: {
+    name: string;
+    chainlistId: number;
+  };
+  address: string;
 }
 
 export interface OfferWritten {
