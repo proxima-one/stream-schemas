@@ -22,7 +22,13 @@ config.references = [];
   const { stdout, stderr } = await exec('yarn workspaces info --json');
 
   const lines = stdout.split('\n');
-  const depthTree = lines.slice(1, lines.length - 2).join('\n');
+  const openBracketIdx = lines.indexOf("{");
+  const closeBracketIdx = lines.lastIndexOf("}");
+
+  if (openBracketIdx < 0 || closeBracketIdx < 0)
+    throw new Error("can't parse yarn workspaces");
+
+  const depthTree = lines.slice(openBracketIdx, closeBracketIdx+1).join('\n');
   const workspaces = JSON.parse(depthTree);
 
   for (const name in workspaces) {
