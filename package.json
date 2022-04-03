@@ -13,7 +13,7 @@
     "lint": "lerna run lint --stream --parallel",
     "test": "yarn jest \"packages/.*\\.(spec|test)\\.ts$\" --coverage",
     "test:e2e": "yarn jest \"packages/.*\\.e2e\\.ts$\" --coverage --forceExit --runInBand",
-    "pub": "lerna publish"
+    "pub": "lerna publish --no-verify-access"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
