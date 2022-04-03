@@ -15,13 +15,13 @@ export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
   version: "0.1.0",
 }
 
-export type FungibleTokenDiscoveryStreamEvent =
+export type NewFungibleTokenStreamEvent =
   | events.NewToken & {
   ref?: ChainReference
 };
 
-export const fungibleTokenDiscovery: EventStreamSchema<FungibleTokenDiscoveryStreamEvent> = {
-  name: "fungible-token-discovery.streams.proxima.one",
-  serdes: serializers.json<FungibleTokenDiscoveryStreamEvent>(),
+export const newFungibleToken: EventStreamSchema<NewFungibleTokenStreamEvent> = {
+  name: "new-tokens.fungible-token.streams.proxima.one",
+  serdes: serializers.json<NewFungibleTokenStreamEvent>(),
   version: "0.1.0",
 }
