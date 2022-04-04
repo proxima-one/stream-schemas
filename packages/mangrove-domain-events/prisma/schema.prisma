@@ -1,0 +1,181 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider             = "postgresql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "interactiveTransactions"]
+}
+
+
+generator typegraphql {
+    provider        = "typegraphql-prisma"
+    output   = "../generated"
+}
+
+// data model
+
+model Chain {
+  id   Int    @id
+  name String
+
+  mangroves Mangrove[]
+  tokens    Token[]
+}
+
+model Token {
+  id        String   @id @db.VarChar(255)
+  chainId   Int
+  symbol    String
+  name      String
+  decimals  Int
+
+  chain                    Chain        @relation(fields: [chainId], references: [id])
+  offerListsWhereInbound   OfferList[]  @relation("OfferListsByInboundToken")
+  offerListsWhereOutbound  OfferList[]  @relation("OfferListsByOutboundToken")
+}
+
+model Mangrove {
+  id         String   @id @db.VarChar(255)
+  chainId    Int      @default(-1)
+  address    String   @default("") @db.VarChar(80)
+  governance String?
+  monitor    String?
+  vault      String?
+  useOracle  Boolean?
+  notify     Boolean?
+  gasmax     Int?
+  gasprice   Int?
+  dead       Boolean?
+
+  chain          Chain           @relation(fields: [chainId], references: [id])
+  offerLists     OfferList[]
+  offers         Offer[]
+  orders         Order[]
+  makerBalances  MakerBalance[]
+  takerApprovals TakerApproval[]
+}
+
+model Account {
+  id      String @id @db.VarChar(255)
+  address String @db.VarChar(80)
+
+  ownedTakerApprovals   TakerApproval[] @relation("OwnerApprovals")
+  spenderTakerApprovals TakerApproval[] @relation("SpenderApprovals")
+  offers                Offer[]
+  orders                Order[]
+  makerBalances         MakerBalance[]
+}
+
+model TakerApproval {
+  id          String @id @db.VarChar(255)
+  mangroveId  String @db.VarChar(255)
+  offerListId String @db.VarChar(255)
+  ownerId     String @db.VarChar(255)
+  spenderId   String @db.VarChar(255)
+  value       String @db.VarChar(80)
+
+  mangrove  Mangrove  @relation(fields: [mangroveId], references: [id])
+  offerList OfferList @relation(fields: [offerListId], references: [id])
+  owner     Account   @relation("OwnerApprovals", fields: [ownerId], references: [id])
+  spender   Account   @relation("SpenderApprovals", fields: [spenderId], references: [id])
+}
+
+model MakerBalance {
+  id         String @id @db.VarChar(255)
+  mangroveId String @db.VarChar(100)
+  makerId    String @db.VarChar(255)
+  balance    String @db.VarChar(80)
+
+  mangrove Mangrove @relation(fields: [mangroveId], references: [id])
+  maker    Account  @relation(fields: [makerId], references: [id])
+}
+
+model OfferList {
+  id              String   @id @db.VarChar(255)
+  mangroveId      String   @db.VarChar(255)
+  inboundTokenId  String   @db.VarChar(255)
+  outboundTokenId String   @db.VarChar(255)
+  active          Boolean?
+  fee             String?  @db.VarChar(80)
+  gasbase         Int?
+  density         String?  @db.VarChar(80)
+
+  mangrove       Mangrove        @relation(fields: [mangroveId], references: [id])
+  inboundToken   Token           @relation(name: "OfferListsByInboundToken", fields: [inboundTokenId], references: [id])
+  outboundToken  Token           @relation(name: "OfferListsByOutboundToken", fields: [outboundTokenId], references: [id])
+  offers         Offer[]
+  takerApprovals TakerApproval[]
+  orders         Order[]
+}
+
+model Offer {
+  id             String   @id @db.VarChar(255)
+  blockNumber    Int
+  time           DateTime @db.Timestamp
+  offerListId    String   @db.VarChar(255)
+  mangroveId     String   @db.VarChar(255)
+  makerId        String   @db.VarChar(255)
+  prevOfferId    String?
+  wants          String   @db.VarChar(80)
+  wantsNumber    Float
+  gives          String   @db.VarChar(80)
+  givesNumber    Float
+  takerPaysPrice Float?
+  makerPaysPrice Float?
+  gasprice       Int
+  gasreq         Int
+  live           Boolean
+  deprovisioned  Boolean
+
+  mangrove  Mangrove  @relation(fields: [mangroveId], references: [id])
+  offerList OfferList @relation(fields: [offerListId], references: [id])
+  maker     Account   @relation(fields: [makerId], references: [id])
+}
+
+model Order {
+  id              String   @id @db.VarChar(255)
+  blockNumber     Int
+  time            DateTime @db.Timestamp
+  mangroveId      String   @db.VarChar(255)
+  offerListId     String   @db.VarChar(255)
+  takerId         String   @db.VarChar(255)
+  takerGot        String
+  takerGotNumber  Float
+  takerGave       String
+  takerGaveNumber Float
+  takerPaidPrice  Float?
+  makerPaidPrice  Float?
+  penalty         String
+
+  takenOffers TakenOffer[]
+  mangrove    Mangrove     @relation(fields: [mangroveId], references: [id])
+  offerList   OfferList    @relation(fields: [offerListId], references: [id])
+  taker       Account      @relation(fields: [takerId], references: [id])
+}
+
+model TakenOffer {
+  id               String  @id @db.VarChar(255)
+  orderId          String  @db.VarChar(255)
+  takerWants       String  @db.VarChar(80)
+  takerWantsNumber Float
+  takerGives       String  @db.VarChar(80)
+  takerGivesNumber Float
+  takerPaysPrice   Float?
+  makerPaysPrice   Float?
+  posthookFailed   Boolean
+  failReason       String?
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+// store consumed streams state
+model Streams {
+  id    String @id @db.VarChar(50)
+  state String @db.VarChar(255)
+}
