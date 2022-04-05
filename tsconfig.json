@@ -43,6 +43,9 @@
     },
     {
       "path": "packages/mangrove"
+    },
+    {
+      "path": "packages/nft"
     }
   ]
 }
