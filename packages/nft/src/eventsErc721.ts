@@ -15,10 +15,10 @@ export interface Transfer {
   id: string;
   chain: string;
 
-  contract: string;
+  tokenCollectionId: string;
   from: string;
   to: string;
-  tokenId: string;
+  tokenNumber: string;
 }
 
 export interface Approval {
@@ -27,10 +27,10 @@ export interface Approval {
   id: string;
   chain: string;
 
-  contract: string;
+  tokenCollectionId: string;
   owner: string;
   approved: string;
-  tokenId: string;
+  tokenNumber: string;
 }
 
 export interface ApprovalForAll {
@@ -39,7 +39,7 @@ export interface ApprovalForAll {
   id: string;
   chain: string;
 
-  contract: string;
+  tokenCollectionId: string;
   owner: string;
   operator: string;
   approved: boolean;
