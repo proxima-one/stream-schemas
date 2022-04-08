@@ -1,38 +1,57 @@
 export type GeneralizedDexEvent =
-  AddDex |
-  AssignPool |
-  NewPoolTransaction;
+  NewDex |
+  NewPool |
+  PoolUpdate;
 
 export interface BlockchainEventBase extends JsonObject {
-  ref?: BlockchainRef;
+  ref?: TxRef;
 }
 
-export interface AddDex extends BlockchainEventBase {
-  type: "addDex";
+export interface NewDex extends BlockchainEventBase {
+  type: "newDex";
 
   dex: Dex;
 }
 
-export interface AssignPool extends BlockchainEventBase {
-  type: "assignPool";
+export interface NewPool extends BlockchainEventBase {
+  type: "newPool";
 
-  dexId: DexId;
   pool: Pool;
-}
-
-export interface NewPoolTransaction extends BlockchainEventBase {
-  type: "newTx";
-
-  transaction: PoolTransaction;
-}
-
-export interface PoolTransaction extends JsonObject {
-  id: TransactionId;
-  poolId: ExchangePoolId;
   dexId: DexId;
-  sender: UserId;
-  event: ExchangePoolEvent;
 }
+
+export interface PoolUpdate extends BlockchainEventBase {
+  type: "poolUpdate";
+
+  dexId: DexId;
+  poolId: PoolId;
+  oldState: PoolState;
+  newState: PoolState;
+  event?: PoolEvent;
+}
+
+export interface PoolState extends JsonObject {
+  liquidity: Amount[];
+  priceWeights?: Amount[];
+}
+
+export type PoolEvent = SwapEvent | MintEvent | BurnEvent | undefined;
+
+export interface SwapEvent extends JsonObject {
+  type: "swap";
+  amounts: Amount[];
+}
+
+export interface MintEvent extends JsonObject {
+  type: "mint";
+  lpTransfer?: Transfer;
+}
+
+export interface BurnEvent extends JsonObject {
+  type: "burn";
+  lpTransfer?: Transfer;
+}
+
 
 export interface Dex extends JsonObject {
   id: DexId;
@@ -49,34 +68,30 @@ export interface Network extends JsonObject {
 }
 
 export interface Pool extends JsonObject {
-  id: ExchangePoolId;
+  id: PoolId;
   assets: Asset[];
   lp?: Asset;
 }
 
-export interface PoolLiquidity extends JsonObject {
-  assets: Amount[];
-  lp?: Amount;
-}
-
-export interface ExchangePoolEvent extends JsonObject {
-  type: "swap" | "add" | "remove" | "other";
-  liquidityChange: PoolLiquidity;
-  prices?: Amount[]; // prices weight
-}
-
-export interface BlockchainRef extends JsonObject {
+export interface TxRef extends JsonObject {
   blockNumber?: number;
   blockHash?: string;
   txHash?: string;
+  sender?: UserId;
+}
+
+export interface Transfer extends JsonObject {
+  from?: UserId;
+  to: UserId;
+  asset: Asset;
+  value: Amount;
 }
 
 export type UserId = string;
-export type TransactionId = string;
-export type ExchangePoolId = string;
+export type PoolId = string;
+export type DexId = string;
 export type Amount = string;
 export type Asset = string;
-export type DexId = string;
 
 // JSON constraints
 interface ComplexValue extends Readonly<Record<string, Value>> {}
