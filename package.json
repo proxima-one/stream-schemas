@@ -11,7 +11,7 @@
     "prepare": "node ./configure-references.js || echo 'skipping configure references!'",
     "build": "lerna run build --stream",
     "lint": "lerna run lint --stream --parallel",
-    "test": "yarn jest \"packages/.*\\.(spec|test)\\.ts$\" --coverage",
+    "test": "yarn jest \"packages/.*\\.(spec|test)\\.ts$\" --coverage --passWithNoTests",
     "test:e2e": "yarn jest \"packages/.*\\.e2e\\.ts$\" --coverage --forceExit --runInBand",
     "pub": "lerna publish --no-verify-access"
   },
