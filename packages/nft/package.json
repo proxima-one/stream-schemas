@@ -1,6 +1,6 @@
 {
   "name": "@proximaone/stream-schema-nft",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
