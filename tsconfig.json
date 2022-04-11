@@ -39,7 +39,7 @@
       "path": "packages/fungible-token"
     },
     {
-      "path": "packages/generic-dex"
+      "path": "packages/generic-amm-dex"
     },
     {
       "path": "packages/mangrove"
