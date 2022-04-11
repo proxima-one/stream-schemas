@@ -1,5 +1,5 @@
 {
-  "name": "@proximaone/stream-schema-generic-dex",
+  "name": "@proximaone/stream-schema-generic-amm-dex",
   "version": "0.1.13",
   "description": "",
   "main": "dist/index.js",

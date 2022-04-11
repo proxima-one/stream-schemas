@@ -1,5 +1,5 @@
-export type GeneralizedDexEvent =
-  NewDex |
+export type GeneralizedAmmDexEvent =
+  NewAmmDex |
   NewPool |
   PoolUpdate;
 
@@ -7,23 +7,23 @@ export interface BlockchainEventBase extends JsonObject {
   ref?: TxRef;
 }
 
-export interface NewDex extends BlockchainEventBase {
+export interface NewAmmDex extends BlockchainEventBase {
   type: "newDex";
 
-  dex: Dex;
+  dex: AmmDex;
 }
 
 export interface NewPool extends BlockchainEventBase {
   type: "newPool";
 
   pool: Pool;
-  dexId: DexId;
+  dexId: AmmDexId;
 }
 
 export interface PoolUpdate extends BlockchainEventBase {
   type: "poolUpdate";
 
-  dexId: DexId;
+  dexId: AmmDexId;
   poolId: PoolId;
   oldState: PoolState;
   newState: PoolState;
@@ -53,14 +53,14 @@ export interface BurnEvent extends JsonObject {
 }
 
 
-export interface Dex extends JsonObject {
-  id: DexId;
+export interface AmmDex extends JsonObject {
+  id: AmmDexId;
   network: Network;
   displayName: string;
-  protocol: DexProtocol | string;
+  protocol: AmmDexProtocol | string;
 }
 
-export type DexProtocol = "uniswap2" | "uniswap3";
+export type AmmDexProtocol = "uniswap2" | "uniswap3";
 
 export interface Network extends JsonObject {
   name: string;
@@ -89,7 +89,7 @@ export interface Transfer extends JsonObject {
 
 export type UserId = string;
 export type PoolId = string;
-export type DexId = string;
+export type AmmDexId = string;
 export type Amount = string;
 export type Asset = string;
 
