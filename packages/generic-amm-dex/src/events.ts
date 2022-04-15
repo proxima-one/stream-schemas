@@ -18,6 +18,7 @@ export interface NewPool extends BlockchainEventBase {
 
   pool: Pool;
   dexId: AmmDexId;
+  state: PoolState;
 }
 
 export interface PoolUpdate extends BlockchainEventBase {
@@ -83,7 +84,6 @@ export interface TxRef extends JsonObject {
 export interface Transfer extends JsonObject {
   from?: UserId;
   to: UserId;
-  asset: Asset;
   value: Amount;
 }
 
