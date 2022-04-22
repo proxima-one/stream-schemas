@@ -21,6 +21,19 @@ export interface Transfer {
   tokenNumber: string;
 }
 
+export interface Sale {
+  type: "sale";
+
+  id: string;
+  chain: string;
+
+  tokenCollectionId: string;
+  from: string;
+  to: string;
+  tokenNumber: string;
+  price: CurrencyAmount;
+}
+
 export interface Approval {
   type: "approval";
 
@@ -43,4 +56,26 @@ export interface ApprovalForAll {
   owner: string;
   operator: string;
   approved: boolean;
+}
+
+export interface CurrencyAmount {
+  amount: string;
+  fiat?: Fiat;
+  token?: Token;
+  coin?: Coin;
+}
+
+export interface Fiat {
+  isoCode: string;
+}
+
+export interface Token {
+  symbol: string,
+  network: string,
+  address: string,
+}
+
+export interface Coin {
+  symbol: string,
+  network: string,
 }
