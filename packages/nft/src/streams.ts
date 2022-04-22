@@ -6,7 +6,7 @@ export type NftStreamEvent = (
   | events.NewNftCollection
   | events.Approval
   | events.ApprovalForAll
-  | events.Sale
+  | events.NftSale
   | events.Transfer) & {
   ref?: ChainReference
 };

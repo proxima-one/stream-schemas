@@ -21,8 +21,8 @@ export interface Transfer {
   tokenNumber: string;
 }
 
-export interface Sale {
-  type: "sale";
+export interface NftSale {
+  type: "nftSale";
 
   id: string;
   chain: string;
@@ -62,7 +62,6 @@ export interface CurrencyAmount {
   amount: string;
   fiat?: Fiat;
   token?: Token;
-  coin?: Coin;
 }
 
 export interface Fiat {
@@ -71,11 +70,6 @@ export interface Fiat {
 
 export interface Token {
   symbol: string,
-  network: string,
-  address: string,
-}
-
-export interface Coin {
-  symbol: string,
-  network: string,
+  network?: string,
+  address?: string,
 }
