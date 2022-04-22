@@ -2,11 +2,12 @@ import * as events from "./events";
 import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
 import { ChainReference } from "./model";
 
-export type NftStreamEvent =
+export type NftStreamEvent = (
   | events.NewNftCollection
   | events.Approval
   | events.ApprovalForAll
-  | events.Transfer & {
+  | events.NftSale
+  | events.Transfer) & {
   ref?: ChainReference
 };
 
