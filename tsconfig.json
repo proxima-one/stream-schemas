@@ -33,6 +33,9 @@
   "files": [],
   "references": [
     {
+      "path": "packages/accounts"
+    },
+    {
       "path": "packages/base"
     },
     {
