@@ -1,5 +1,5 @@
 {
-  "name": "@proximaone/stream-schema-eth-block-events",
+  "name": "@proxima-one/stream-schema-eth-block-events",
   "version": "0.1.0",
   "license": "MIT",
   "files": [
