@@ -1,12 +1,13 @@
 import * as events from "./events";
-import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
-import { ChainReference } from "./model";
+import { EventStreamSchema, serializers, TxRefStr as TxRefBase } from "@proximaone/stream-schema-base";
+
+export type TxRef = Pick<TxRefBase, "blockNumber" | "blockHash" | "txHash">;
 
 export type FungibleTokenStreamEvent =
   | events.NewToken
   | events.Approval
   | events.Transfer & {
-  ref?: ChainReference
+  ref?: TxRef
 };
 
 export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
@@ -17,7 +18,7 @@ export const fungibleToken: EventStreamSchema<FungibleTokenStreamEvent> = {
 
 export type NewFungibleTokenStreamEvent =
   | events.NewToken & {
-  ref?: ChainReference
+  ref?: TxRef
 };
 
 export const newFungibleToken: EventStreamSchema<NewFungibleTokenStreamEvent> = {
