@@ -32,8 +32,8 @@ export class BlockHeaderProtoSerializer {
   }
 }
 
-export const fungibleToken: EventStreamSchema<EthBlockEvent> = {
+export const block: EventStreamSchema<EthBlockEvent> = {
   name: "eth-block-events.streams.proxima.one",
   serdes: new BlockProtoSerializer(),
-  version: "0.1.0",
+  version: "0.1.1",
 };

@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "downlevelIteration": true,
     "paths": {
-      "@proxima-one/stream-schema-*": [
+      "@proximaone/stream-schema-*": [
         "*/src"
       ]
     }
@@ -37,6 +37,15 @@
     },
     {
       "path": "packages/fungible-token"
+    },
+    {
+      "path": "packages/generic-amm-dex"
+    },
+    {
+      "path": "packages/mangrove"
+    },
+    {
+      "path": "packages/nft"
     }
   ]
 }

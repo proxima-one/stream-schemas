@@ -1,6 +1,6 @@
 {
-  "name": "@proxima-one/stream-schema-generic-dex",
-  "version": "0.1.5",
+  "name": "@proximaone/stream-schema-nft",
+  "version": "0.2.4",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
     "dist",
     "lib"
   ],
-  "repository": "https://github.com/proxima-one/proxima-npm",
+  "repository": "https://github.com/proxima-one/stream-schemas",
   "jest": {
     "preset": "<rootDir>/../../"
   },
@@ -24,10 +24,13 @@
     "test": "yarn jest"
   },
   "dependencies": {
-    "@proxima-one/stream-schema-base": "^0.1.2"
+    "@proximaone/stream-schema-base": "^0.1.11"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1"
   },
-  "gitHead": "b828fa884432fe41e4a393a7f8ff854d55743fc6"
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "d2f0f9345deb54f62ec98edb6763a41340692298"
 }

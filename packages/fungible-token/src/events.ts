@@ -1,7 +1,10 @@
 export interface NewToken {
   type: "new";
 
-  token: string;
+  id: string;
+  chain: string;
+
+  contractAddress: string;
   symbol: string;
   name: string;
   totalSupply: string;
@@ -11,7 +14,10 @@ export interface NewToken {
 export interface Transfer {
   type: "transfer";
 
-  token: string;
+  id: string;
+  chain: string;
+
+  tokenId: string;
   from: string;
   to: string;
   value: string;
@@ -20,7 +26,10 @@ export interface Transfer {
 export interface Approval {
   type: "approval";
 
-  token: string;
+  id: string;
+  chain: string;
+
+  tokenId: string;
   owner: string;
   spender: string;
   value: string;

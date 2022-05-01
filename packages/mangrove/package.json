@@ -1,6 +1,6 @@
 {
-  "name": "@proximaone/stream-schema-fungible-token",
-  "version": "0.2.0",
+  "name": "@proximaone/stream-schema-mangrove",
+  "version": "0.1.9",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

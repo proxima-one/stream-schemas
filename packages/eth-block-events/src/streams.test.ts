@@ -1,5 +1,4 @@
 import { BlockHeader, BigInt } from "./gen/ts/proto/block";
-import BigNumber from "bignumber.js";
 import { Timestamp } from "./gen/ts/google/protobuf/timestamp";
 import { BlockHeaderProtoSerializer } from "./streams";
 
@@ -31,22 +30,22 @@ describe("Test stream proto schema", () => {
       nonce: "0x6af23caae95692ef",
     };
 
-    let blockHeader = BlockHeader.fromJSON(blockObject);
+    const blockHeader = BlockHeader.fromJSON(blockObject);
 
-    let encoded = BlockHeader.encode(blockHeader).finish();
+    const encoded = BlockHeader.encode(blockHeader).finish();
     expect(encoded).toBeTruthy();
-    let decodedBlockHeader = BlockHeader.decode(encoded);
+    const decodedBlockHeader = BlockHeader.decode(encoded);
     expect(decodedBlockHeader).toBeTruthy();
 
     expect(BlockHeader.encode(decodedBlockHeader).finish().toString()).toBe(
       encoded.toString()
     );
 
-    let serializer = new BlockHeaderProtoSerializer();
+    const serializer = new BlockHeaderProtoSerializer();
 
-    let ser_enc = serializer.serialize(blockHeader);
+    const ser_enc = serializer.serialize(blockHeader);
     expect(ser_enc).toBeTruthy();
-    let header_decoded = serializer.deserialize(ser_enc);
+    const header_decoded = serializer.deserialize(ser_enc);
     expect(header_decoded).toBeTruthy();
 
     expect(serializer.serialize(header_decoded).toString("hex")).toBe(
