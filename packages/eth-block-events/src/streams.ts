@@ -12,6 +12,8 @@ import {
 
 export type EthBlockEvent = Block | BlockHeader | Log | Receipt | Transaction;
 
+
+
 export class BlockProtoSerializer {
   serialize(val: Block): Buffer {
     return Buffer.from(Block.encode(val).finish());
