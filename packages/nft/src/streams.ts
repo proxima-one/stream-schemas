@@ -1,6 +1,7 @@
 import * as events from "./events";
-import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
-import { ChainReference } from "./model";
+import { EventStreamSchema, serializers, TxRefStr as TxRefBase } from "@proximaone/stream-schema-base";
+
+export type TxRef = Pick<TxRefBase, "blockNumber" | "blockHash" | "txHash">;
 
 export type NftStreamEvent = (
   | events.NewNftCollection
@@ -8,7 +9,7 @@ export type NftStreamEvent = (
   | events.ApprovalForAll
   | events.NftSale
   | events.Transfer) & {
-  ref?: ChainReference
+  ref?: TxRef
 };
 
 export const nft: EventStreamSchema<NftStreamEvent> = {

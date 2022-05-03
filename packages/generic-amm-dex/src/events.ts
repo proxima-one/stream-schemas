@@ -1,3 +1,5 @@
+import { JsonObject, Amount, Address, TxRef as TxRefBase } from "@proximaone/stream-schema-base";
+
 export type GeneralizedAmmDexEvent =
   NewAmmDex |
   NewPool |
@@ -74,12 +76,7 @@ export interface Pool extends JsonObject {
   lp?: Asset;
 }
 
-export interface TxRef extends JsonObject {
-  blockNumber?: number;
-  blockHash?: string;
-  txHash?: string;
-  sender?: UserId;
-}
+export type TxRef = Partial<Omit<TxRefBase, "chain">>;
 
 export interface Transfer extends JsonObject {
   from?: UserId;
@@ -87,15 +84,7 @@ export interface Transfer extends JsonObject {
   value: Amount;
 }
 
-export type UserId = string;
-export type PoolId = string;
+export type UserId = Address;
+export type PoolId = Address;
 export type AmmDexId = string;
-export type Amount = string;
-export type Asset = string;
-
-// JSON constraints
-interface ComplexValue extends Readonly<Record<string, Value>> {}
-interface ArrayValue extends ReadonlyArray<Value> {}
-type Value = ArrayValue | ComplexValue | string | number | boolean | undefined | null;
-
-export type JsonObject = ComplexValue;
+export type Asset = Address;

@@ -38,6 +38,6 @@ export interface EventStreamProcessSchema {
   version: string;
   input_streams: Array<EventStreamProcessSchema>;
   output_streams: Array<EventStreamProcessSchema>;
-  container_id: string; 
+  container_id: string;
   build: string;
 }
