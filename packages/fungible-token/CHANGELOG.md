@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/proxima-one/stream-schemas/compare/@proximaone/stream-schema-fungible-token@0.2.0...@proximaone/stream-schema-fungible-token@0.2.1) (2022-05-03)
+
+**Note:** Version bump only for package @proximaone/stream-schema-fungible-token
+
+
+
+
+
 ## [0.1.8](https://github.com/proxima-one/proxima-npm/compare/@proximaone/stream-schema-fungible-token@0.1.7...@proximaone/stream-schema-fungible-token@0.1.8) (2022-03-31)
 
 **Note:** Version bump only for package @proximaone/stream-schema-fungible-token

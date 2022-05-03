@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.12](https://github.com/proxima-one/stream-schemas/compare/@proximaone/stream-schema-base@0.1.11...@proximaone/stream-schema-base@0.1.12) (2022-05-03)
+
+**Note:** Version bump only for package @proximaone/stream-schema-base
+
+
+
+
+
 ## [0.1.5](https://github.com/proxima-one/proxima-npm/compare/@proximaone/stream-schema-base@0.1.4...@proximaone/stream-schema-base@0.1.5) (2022-03-31)
 
 **Note:** Version bump only for package @proximaone/stream-schema-base
