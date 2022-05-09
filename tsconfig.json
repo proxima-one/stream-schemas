@@ -48,6 +48,9 @@
       "path": "packages/mangrove"
     },
     {
+      "path": "packages/eth-block"
+    },
+    {
       "path": "packages/nft"
     }
   ]
