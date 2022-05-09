@@ -5,10 +5,7 @@ import {
   Log,
   Receipt,
 } from "../src/gen/ts/proto/block";
-import {
-  EventStreamSchema,
-  serializers,
-} from "@proxima-one/stream-schema-base";
+import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
 
 export type EthBlockEvent = Block | BlockHeader | Log | Receipt | Transaction;
 
