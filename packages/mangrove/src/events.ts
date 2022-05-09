@@ -1,5 +1,5 @@
-import * as eth from "./eth";
 import * as core from "./core";
+import {Address, Amount, TxRef} from "@proximaone/stream-schema-base";
 
 export type MangroveEvent = (
   | TakerApprovalUpdated
@@ -11,23 +11,26 @@ export type MangroveEvent = (
   | OfferRetracted
   | OrderCompleted
   ) & {
-  parentOrderId?: core.OrderId; // not empty in case event is emitted in callback/posthook functions
+  tx: Pick<TxRef, "blockNumber" | "blockHash" | "sender" | "txHash" >;
+  mangroveId: core.MangroveId;
+  chainId: number;
+  parentOrder?: core.OrderRef; // not empty in case event is emitted in callback/posthook functions
 };
 
 export interface TakerApprovalUpdated {
   type: "TakerApprovalUpdated";
 
-  owner: eth.Address;
+  owner: Address;
   offerList: core.OfferList;
-  spender: eth.Address;
-  amount: eth.UInt;
+  spender: Address;
+  amount: Amount;
 }
 
 export interface MakerBalanceUpdated {
   type: "MakerBalanceUpdated";
 
   maker: core.MakerId;
-  amountChange: eth.Int;
+  amountChange: Amount;
 }
 
 export interface OfferListParamsUpdated {
@@ -47,11 +50,11 @@ export interface MangroveCreated {
   type: "MangroveCreated";
 
   id: string;
+  address: string;
   chain: {
     name: string;
     chainlistId: number;
   };
-  address: string;
 }
 
 export interface OfferWritten {
