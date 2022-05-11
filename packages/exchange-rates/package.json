@@ -1,0 +1,27 @@
+{
+  "name": "@proximaone/stream-schema-exchange-rates",
+  "version": "0.1.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "repository": "https://github.com/proxima-one/stream-schemas",
+  "author": "proxima.one",
+  "license": "MIT",
+  "scripts": {
+    "prepack": "yarn build",
+    "build": "yarn clean && yarn compile",
+    "clean": "rm -rf dist && rm -f tsconfig.tsbuildinfo",
+    "compile": "tsc --build",
+    "test": "yarn jest"
+  },
+  "dependencies": {
+    "@proximaone/stream-schema-base": "^0.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
