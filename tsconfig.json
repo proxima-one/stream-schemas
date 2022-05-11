@@ -39,6 +39,9 @@
       "path": "packages/base"
     },
     {
+      "path": "packages/exchange-rates"
+    },
+    {
       "path": "packages/fungible-token"
     },
     {
