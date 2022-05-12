@@ -1,13 +1,7 @@
-import {
-  Block,
-  BlockHeader,
-  Transaction,
-  Log,
-  Receipt,
-} from "../src/gen/ts/proto/block";
-import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
+import { Block, BlockHeader } from "../src/gen/ts/proto/block";
+import { EventStreamSchema } from "@proximaone/stream-schema-base";
 
-export type EthBlockEvent = Block | BlockHeader | Log | Receipt | Transaction;
+export type EthBlock = Block;
 
 export class BlockProtoSerializer {
   serialize(val: Block): Buffer {
@@ -29,7 +23,7 @@ export class BlockHeaderProtoSerializer {
   }
 }
 
-export const block: EventStreamSchema<EthBlockEvent> = {
+export const block: EventStreamSchema<EthBlock> = {
   name: "eth-block-events.streams.proxima.one",
   serdes: new BlockProtoSerializer(),
   version: "0.1.1",

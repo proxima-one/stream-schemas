@@ -42,12 +42,12 @@ message Transaction {
   bytes v = 7; 
   bytes r = 8;
   bytes s = 9;
-  bytes hash = 21;
-  bytes from = 22;
-  uint64 block_number = 23;
-  bytes block_hash = 24;
-  optional bytes rlp = 25;
-  optional Proof merkle_proof = 26; 
+  bytes hash = 10;
+  bytes from = 11;
+  uint64 block_number = 12;
+  bytes block_hash = 13;
+  optional bytes rlp = 14;
+  optional Proof merkle_proof = 15; 
 }
 
 message Proof {
@@ -72,14 +72,14 @@ message Log {
 
 message Receipt {
   bytes to = 1;
-  bytes from = 5;
-  uint32 transaction_index = 6;
-  bool status = 7;
-  bytes contract_address = 8;
-  uint64 gas_used = 9;
-  uint64 cumulative_gas_used = 2;
-  bytes logs_bloom = 3;
-  repeated Log logs = 4;
+  bytes from = 2;
+  uint32 transaction_index = 3;
+  bool status = 4;
+  bytes contract_address = 5;
+  uint64 gas_used = 6;
+  uint64 cumulative_gas_used = 7;
+  bytes logs_bloom = 8;
+  repeated Log logs = 9;
   optional bytes rlp = 10;
   optional Proof merkle_proof = 11;
 }

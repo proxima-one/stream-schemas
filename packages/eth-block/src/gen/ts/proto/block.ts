@@ -561,22 +561,22 @@ export const Transaction = {
       writer.uint32(74).bytes(message.s);
     }
     if (message.hash.length !== 0) {
-      writer.uint32(170).bytes(message.hash);
+      writer.uint32(82).bytes(message.hash);
     }
     if (message.from.length !== 0) {
-      writer.uint32(178).bytes(message.from);
+      writer.uint32(90).bytes(message.from);
     }
     if (message.blockNumber !== 0) {
-      writer.uint32(184).uint64(message.blockNumber);
+      writer.uint32(96).uint64(message.blockNumber);
     }
     if (message.blockHash.length !== 0) {
-      writer.uint32(194).bytes(message.blockHash);
+      writer.uint32(106).bytes(message.blockHash);
     }
     if (message.rlp !== undefined) {
-      writer.uint32(202).bytes(message.rlp);
+      writer.uint32(114).bytes(message.rlp);
     }
     if (message.merkleProof !== undefined) {
-      Proof.encode(message.merkleProof, writer.uint32(210).fork()).ldelim();
+      Proof.encode(message.merkleProof, writer.uint32(122).fork()).ldelim();
     }
     return writer;
   },
@@ -615,22 +615,22 @@ export const Transaction = {
         case 9:
           message.s = reader.bytes();
           break;
-        case 21:
+        case 10:
           message.hash = reader.bytes();
           break;
-        case 22:
+        case 11:
           message.from = reader.bytes();
           break;
-        case 23:
+        case 12:
           message.blockNumber = longToNumber(reader.uint64() as Long);
           break;
-        case 24:
+        case 13:
           message.blockHash = reader.bytes();
           break;
-        case 25:
+        case 14:
           message.rlp = reader.bytes();
           break;
-        case 26:
+        case 15:
           message.merkleProof = Proof.decode(reader, reader.uint32());
           break;
         default:
@@ -1063,28 +1063,28 @@ export const Receipt = {
       writer.uint32(10).bytes(message.to);
     }
     if (message.from.length !== 0) {
-      writer.uint32(42).bytes(message.from);
+      writer.uint32(18).bytes(message.from);
     }
     if (message.transactionIndex !== 0) {
-      writer.uint32(48).uint32(message.transactionIndex);
+      writer.uint32(24).uint32(message.transactionIndex);
     }
     if (message.status === true) {
-      writer.uint32(56).bool(message.status);
+      writer.uint32(32).bool(message.status);
     }
     if (message.contractAddress.length !== 0) {
-      writer.uint32(66).bytes(message.contractAddress);
+      writer.uint32(42).bytes(message.contractAddress);
     }
     if (message.gasUsed !== 0) {
-      writer.uint32(72).uint64(message.gasUsed);
+      writer.uint32(48).uint64(message.gasUsed);
     }
     if (message.cumulativeGasUsed !== 0) {
-      writer.uint32(16).uint64(message.cumulativeGasUsed);
+      writer.uint32(56).uint64(message.cumulativeGasUsed);
     }
     if (message.logsBloom.length !== 0) {
-      writer.uint32(26).bytes(message.logsBloom);
+      writer.uint32(66).bytes(message.logsBloom);
     }
     for (const v of message.logs) {
-      Log.encode(v!, writer.uint32(34).fork()).ldelim();
+      Log.encode(v!, writer.uint32(74).fork()).ldelim();
     }
     if (message.rlp !== undefined) {
       writer.uint32(82).bytes(message.rlp);
@@ -1105,28 +1105,28 @@ export const Receipt = {
         case 1:
           message.to = reader.bytes();
           break;
-        case 5:
+        case 2:
           message.from = reader.bytes();
           break;
-        case 6:
+        case 3:
           message.transactionIndex = reader.uint32();
           break;
-        case 7:
+        case 4:
           message.status = reader.bool();
           break;
-        case 8:
+        case 5:
           message.contractAddress = reader.bytes();
           break;
-        case 9:
+        case 6:
           message.gasUsed = longToNumber(reader.uint64() as Long);
           break;
-        case 2:
+        case 7:
           message.cumulativeGasUsed = longToNumber(reader.uint64() as Long);
           break;
-        case 3:
+        case 8:
           message.logsBloom = reader.bytes();
           break;
-        case 4:
+        case 9:
           message.logs.push(Log.decode(reader, reader.uint32()));
           break;
         case 10:
