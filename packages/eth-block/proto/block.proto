@@ -6,8 +6,24 @@ service EthereumTransactions {}
 message Block {
     BlockHeader header = 1;
     repeated Transaction transactions = 2;
-    repeated Log logs = 3;
-    repeated Receipt receipts = 4;
+    repeated Receipt receipts = 3;
+}
+
+message BlockRLP {
+  bytes header = 1;
+  repeated bytes transactions = 2; 
+  repeated bytes receipts = 3;
+}
+
+message BlockMerkleProof { 
+  bytes header = 1;
+  repeated MerkleEntry transaction_entries = 3;
+  repeated MerkleEntry receipt_entries = 4;
+}
+
+message MerkleEntry {
+  bytes entry = 1;
+  bytes proof = 2;
 }
 
 message BlockHeader {
@@ -28,7 +44,6 @@ message BlockHeader {
   bytes nonce = 15;
   bytes hash = 16;
   bytes base_fee_per_gas = 17;
-  bytes rlp = 18;
 }
 
 
@@ -46,12 +61,6 @@ message Transaction {
   bytes from = 11;
   uint64 block_number = 12;
   bytes block_hash = 13;
-  optional bytes rlp = 14;
-  optional Proof merkle_proof = 15; 
-}
-
-message Proof {
-    bytes proof = 1;
 }
 
 message BigInt {
@@ -62,12 +71,6 @@ message Log {
     bytes address = 1;
     repeated bytes topics = 2;
     bytes data = 3;
-    uint32 index = 4;
-    uint32 block_index = 5;
-    bytes block_hash = 6;
-    uint32 transaction_index = 7;
-    bytes transaction_hash = 8;
-    optional bytes rlp = 9;
 }
 
 message Receipt {
@@ -80,7 +83,5 @@ message Receipt {
   uint64 cumulative_gas_used = 7;
   bytes logs_bloom = 8;
   repeated Log logs = 9;
-  optional bytes rlp = 10;
-  optional Proof merkle_proof = 11;
 }
 

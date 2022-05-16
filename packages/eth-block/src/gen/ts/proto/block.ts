@@ -8,8 +8,24 @@ export const protobufPackage = "";
 export interface Block {
   header: BlockHeader | undefined;
   transactions: Transaction[];
-  logs: Log[];
   receipts: Receipt[];
+}
+
+export interface BlockRLP {
+  header: Uint8Array;
+  transactions: Uint8Array[];
+  receipts: Uint8Array[];
+}
+
+export interface BlockMerkleProof {
+  header: Uint8Array;
+  transactionEntries: MerkleEntry[];
+  receiptEntries: MerkleEntry[];
+}
+
+export interface MerkleEntry {
+  entry: Uint8Array;
+  proof: Uint8Array;
 }
 
 export interface BlockHeader {
@@ -30,7 +46,6 @@ export interface BlockHeader {
   nonce: Uint8Array;
   hash: Uint8Array;
   baseFeePerGas: Uint8Array;
-  rlp: Uint8Array;
 }
 
 export interface Transaction {
@@ -47,12 +62,6 @@ export interface Transaction {
   from: Uint8Array;
   blockNumber: number;
   blockHash: Uint8Array;
-  rlp?: Uint8Array | undefined;
-  merkleProof?: Proof | undefined;
-}
-
-export interface Proof {
-  proof: Uint8Array;
 }
 
 export interface BigInt {
@@ -63,12 +72,6 @@ export interface Log {
   address: Uint8Array;
   topics: Uint8Array[];
   data: Uint8Array;
-  index: number;
-  blockIndex: number;
-  blockHash: Uint8Array;
-  transactionIndex: number;
-  transactionHash: Uint8Array;
-  rlp?: Uint8Array | undefined;
 }
 
 export interface Receipt {
@@ -81,12 +84,10 @@ export interface Receipt {
   cumulativeGasUsed: number;
   logsBloom: Uint8Array;
   logs: Log[];
-  rlp?: Uint8Array | undefined;
-  merkleProof?: Proof | undefined;
 }
 
 function createBaseBlock(): Block {
-  return { header: undefined, transactions: [], logs: [], receipts: [] };
+  return { header: undefined, transactions: [], receipts: [] };
 }
 
 export const Block = {
@@ -97,11 +98,8 @@ export const Block = {
     for (const v of message.transactions) {
       Transaction.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    for (const v of message.logs) {
-      Log.encode(v!, writer.uint32(26).fork()).ldelim();
-    }
     for (const v of message.receipts) {
-      Receipt.encode(v!, writer.uint32(34).fork()).ldelim();
+      Receipt.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -122,9 +120,6 @@ export const Block = {
           );
           break;
         case 3:
-          message.logs.push(Log.decode(reader, reader.uint32()));
-          break;
-        case 4:
           message.receipts.push(Receipt.decode(reader, reader.uint32()));
           break;
         default:
@@ -142,9 +137,6 @@ export const Block = {
         : undefined,
       transactions: Array.isArray(object?.transactions)
         ? object.transactions.map((e: any) => Transaction.fromJSON(e))
-        : [],
-      logs: Array.isArray(object?.logs)
-        ? object.logs.map((e: any) => Log.fromJSON(e))
         : [],
       receipts: Array.isArray(object?.receipts)
         ? object.receipts.map((e: any) => Receipt.fromJSON(e))
@@ -165,11 +157,6 @@ export const Block = {
     } else {
       obj.transactions = [];
     }
-    if (message.logs) {
-      obj.logs = message.logs.map((e) => (e ? Log.toJSON(e) : undefined));
-    } else {
-      obj.logs = [];
-    }
     if (message.receipts) {
       obj.receipts = message.receipts.map((e) =>
         e ? Receipt.toJSON(e) : undefined
@@ -188,9 +175,275 @@ export const Block = {
         : undefined;
     message.transactions =
       object.transactions?.map((e) => Transaction.fromPartial(e)) || [];
-    message.logs = object.logs?.map((e) => Log.fromPartial(e)) || [];
     message.receipts =
       object.receipts?.map((e) => Receipt.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseBlockRLP(): BlockRLP {
+  return { header: new Uint8Array(), transactions: [], receipts: [] };
+}
+
+export const BlockRLP = {
+  encode(
+    message: BlockRLP,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.header.length !== 0) {
+      writer.uint32(10).bytes(message.header);
+    }
+    for (const v of message.transactions) {
+      writer.uint32(18).bytes(v!);
+    }
+    for (const v of message.receipts) {
+      writer.uint32(26).bytes(v!);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BlockRLP {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBlockRLP();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.header = reader.bytes();
+          break;
+        case 2:
+          message.transactions.push(reader.bytes());
+          break;
+        case 3:
+          message.receipts.push(reader.bytes());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BlockRLP {
+    return {
+      header: isSet(object.header)
+        ? bytesFromBase64(object.header)
+        : new Uint8Array(),
+      transactions: Array.isArray(object?.transactions)
+        ? object.transactions.map((e: any) => bytesFromBase64(e))
+        : [],
+      receipts: Array.isArray(object?.receipts)
+        ? object.receipts.map((e: any) => bytesFromBase64(e))
+        : [],
+    };
+  },
+
+  toJSON(message: BlockRLP): unknown {
+    const obj: any = {};
+    message.header !== undefined &&
+      (obj.header = base64FromBytes(
+        message.header !== undefined ? message.header : new Uint8Array()
+      ));
+    if (message.transactions) {
+      obj.transactions = message.transactions.map((e) =>
+        base64FromBytes(e !== undefined ? e : new Uint8Array())
+      );
+    } else {
+      obj.transactions = [];
+    }
+    if (message.receipts) {
+      obj.receipts = message.receipts.map((e) =>
+        base64FromBytes(e !== undefined ? e : new Uint8Array())
+      );
+    } else {
+      obj.receipts = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BlockRLP>, I>>(object: I): BlockRLP {
+    const message = createBaseBlockRLP();
+    message.header = object.header ?? new Uint8Array();
+    message.transactions = object.transactions?.map((e) => e) || [];
+    message.receipts = object.receipts?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBaseBlockMerkleProof(): BlockMerkleProof {
+  return {
+    header: new Uint8Array(),
+    transactionEntries: [],
+    receiptEntries: [],
+  };
+}
+
+export const BlockMerkleProof = {
+  encode(
+    message: BlockMerkleProof,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.header.length !== 0) {
+      writer.uint32(10).bytes(message.header);
+    }
+    for (const v of message.transactionEntries) {
+      MerkleEntry.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    for (const v of message.receiptEntries) {
+      MerkleEntry.encode(v!, writer.uint32(34).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BlockMerkleProof {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseBlockMerkleProof();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.header = reader.bytes();
+          break;
+        case 3:
+          message.transactionEntries.push(
+            MerkleEntry.decode(reader, reader.uint32())
+          );
+          break;
+        case 4:
+          message.receiptEntries.push(
+            MerkleEntry.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BlockMerkleProof {
+    return {
+      header: isSet(object.header)
+        ? bytesFromBase64(object.header)
+        : new Uint8Array(),
+      transactionEntries: Array.isArray(object?.transactionEntries)
+        ? object.transactionEntries.map((e: any) => MerkleEntry.fromJSON(e))
+        : [],
+      receiptEntries: Array.isArray(object?.receiptEntries)
+        ? object.receiptEntries.map((e: any) => MerkleEntry.fromJSON(e))
+        : [],
+    };
+  },
+
+  toJSON(message: BlockMerkleProof): unknown {
+    const obj: any = {};
+    message.header !== undefined &&
+      (obj.header = base64FromBytes(
+        message.header !== undefined ? message.header : new Uint8Array()
+      ));
+    if (message.transactionEntries) {
+      obj.transactionEntries = message.transactionEntries.map((e) =>
+        e ? MerkleEntry.toJSON(e) : undefined
+      );
+    } else {
+      obj.transactionEntries = [];
+    }
+    if (message.receiptEntries) {
+      obj.receiptEntries = message.receiptEntries.map((e) =>
+        e ? MerkleEntry.toJSON(e) : undefined
+      );
+    } else {
+      obj.receiptEntries = [];
+    }
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<BlockMerkleProof>, I>>(
+    object: I
+  ): BlockMerkleProof {
+    const message = createBaseBlockMerkleProof();
+    message.header = object.header ?? new Uint8Array();
+    message.transactionEntries =
+      object.transactionEntries?.map((e) => MerkleEntry.fromPartial(e)) || [];
+    message.receiptEntries =
+      object.receiptEntries?.map((e) => MerkleEntry.fromPartial(e)) || [];
+    return message;
+  },
+};
+
+function createBaseMerkleEntry(): MerkleEntry {
+  return { entry: new Uint8Array(), proof: new Uint8Array() };
+}
+
+export const MerkleEntry = {
+  encode(
+    message: MerkleEntry,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.entry.length !== 0) {
+      writer.uint32(10).bytes(message.entry);
+    }
+    if (message.proof.length !== 0) {
+      writer.uint32(18).bytes(message.proof);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): MerkleEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseMerkleEntry();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.entry = reader.bytes();
+          break;
+        case 2:
+          message.proof = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MerkleEntry {
+    return {
+      entry: isSet(object.entry)
+        ? bytesFromBase64(object.entry)
+        : new Uint8Array(),
+      proof: isSet(object.proof)
+        ? bytesFromBase64(object.proof)
+        : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: MerkleEntry): unknown {
+    const obj: any = {};
+    message.entry !== undefined &&
+      (obj.entry = base64FromBytes(
+        message.entry !== undefined ? message.entry : new Uint8Array()
+      ));
+    message.proof !== undefined &&
+      (obj.proof = base64FromBytes(
+        message.proof !== undefined ? message.proof : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial<I extends Exact<DeepPartial<MerkleEntry>, I>>(
+    object: I
+  ): MerkleEntry {
+    const message = createBaseMerkleEntry();
+    message.entry = object.entry ?? new Uint8Array();
+    message.proof = object.proof ?? new Uint8Array();
     return message;
   },
 };
@@ -214,7 +467,6 @@ function createBaseBlockHeader(): BlockHeader {
     nonce: new Uint8Array(),
     hash: new Uint8Array(),
     baseFeePerGas: new Uint8Array(),
-    rlp: new Uint8Array(),
   };
 }
 
@@ -276,9 +528,6 @@ export const BlockHeader = {
     }
     if (message.baseFeePerGas.length !== 0) {
       writer.uint32(138).bytes(message.baseFeePerGas);
-    }
-    if (message.rlp.length !== 0) {
-      writer.uint32(146).bytes(message.rlp);
     }
     return writer;
   },
@@ -343,9 +592,6 @@ export const BlockHeader = {
         case 17:
           message.baseFeePerGas = reader.bytes();
           break;
-        case 18:
-          message.rlp = reader.bytes();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -401,7 +647,6 @@ export const BlockHeader = {
       baseFeePerGas: isSet(object.baseFeePerGas)
         ? bytesFromBase64(object.baseFeePerGas)
         : new Uint8Array(),
-      rlp: isSet(object.rlp) ? bytesFromBase64(object.rlp) : new Uint8Array(),
     };
   },
 
@@ -472,10 +717,6 @@ export const BlockHeader = {
           ? message.baseFeePerGas
           : new Uint8Array()
       ));
-    message.rlp !== undefined &&
-      (obj.rlp = base64FromBytes(
-        message.rlp !== undefined ? message.rlp : new Uint8Array()
-      ));
     return obj;
   },
 
@@ -503,7 +744,6 @@ export const BlockHeader = {
     message.nonce = object.nonce ?? new Uint8Array();
     message.hash = object.hash ?? new Uint8Array();
     message.baseFeePerGas = object.baseFeePerGas ?? new Uint8Array();
-    message.rlp = object.rlp ?? new Uint8Array();
     return message;
   },
 };
@@ -523,8 +763,6 @@ function createBaseTransaction(): Transaction {
     from: new Uint8Array(),
     blockNumber: 0,
     blockHash: new Uint8Array(),
-    rlp: undefined,
-    merkleProof: undefined,
   };
 }
 
@@ -571,12 +809,6 @@ export const Transaction = {
     }
     if (message.blockHash.length !== 0) {
       writer.uint32(106).bytes(message.blockHash);
-    }
-    if (message.rlp !== undefined) {
-      writer.uint32(114).bytes(message.rlp);
-    }
-    if (message.merkleProof !== undefined) {
-      Proof.encode(message.merkleProof, writer.uint32(122).fork()).ldelim();
     }
     return writer;
   },
@@ -627,12 +859,6 @@ export const Transaction = {
         case 13:
           message.blockHash = reader.bytes();
           break;
-        case 14:
-          message.rlp = reader.bytes();
-          break;
-        case 15:
-          message.merkleProof = Proof.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -666,10 +892,6 @@ export const Transaction = {
       blockHash: isSet(object.blockHash)
         ? bytesFromBase64(object.blockHash)
         : new Uint8Array(),
-      rlp: isSet(object.rlp) ? bytesFromBase64(object.rlp) : undefined,
-      merkleProof: isSet(object.merkleProof)
-        ? Proof.fromJSON(object.merkleProof)
-        : undefined,
     };
   },
 
@@ -718,13 +940,6 @@ export const Transaction = {
       (obj.blockHash = base64FromBytes(
         message.blockHash !== undefined ? message.blockHash : new Uint8Array()
       ));
-    message.rlp !== undefined &&
-      (obj.rlp =
-        message.rlp !== undefined ? base64FromBytes(message.rlp) : undefined);
-    message.merkleProof !== undefined &&
-      (obj.merkleProof = message.merkleProof
-        ? Proof.toJSON(message.merkleProof)
-        : undefined);
     return obj;
   },
 
@@ -751,65 +966,6 @@ export const Transaction = {
     message.from = object.from ?? new Uint8Array();
     message.blockNumber = object.blockNumber ?? 0;
     message.blockHash = object.blockHash ?? new Uint8Array();
-    message.rlp = object.rlp ?? undefined;
-    message.merkleProof =
-      object.merkleProof !== undefined && object.merkleProof !== null
-        ? Proof.fromPartial(object.merkleProof)
-        : undefined;
-    return message;
-  },
-};
-
-function createBaseProof(): Proof {
-  return { proof: new Uint8Array() };
-}
-
-export const Proof = {
-  encode(message: Proof, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.proof.length !== 0) {
-      writer.uint32(10).bytes(message.proof);
-    }
-    return writer;
-  },
-
-  decode(input: _m0.Reader | Uint8Array, length?: number): Proof {
-    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseProof();
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.proof = reader.bytes();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): Proof {
-    return {
-      proof: isSet(object.proof)
-        ? bytesFromBase64(object.proof)
-        : new Uint8Array(),
-    };
-  },
-
-  toJSON(message: Proof): unknown {
-    const obj: any = {};
-    message.proof !== undefined &&
-      (obj.proof = base64FromBytes(
-        message.proof !== undefined ? message.proof : new Uint8Array()
-      ));
-    return obj;
-  },
-
-  fromPartial<I extends Exact<DeepPartial<Proof>, I>>(object: I): Proof {
-    const message = createBaseProof();
-    message.proof = object.proof ?? new Uint8Array();
     return message;
   },
 };
@@ -872,17 +1028,7 @@ export const BigInt = {
 };
 
 function createBaseLog(): Log {
-  return {
-    address: new Uint8Array(),
-    topics: [],
-    data: new Uint8Array(),
-    index: 0,
-    blockIndex: 0,
-    blockHash: new Uint8Array(),
-    transactionIndex: 0,
-    transactionHash: new Uint8Array(),
-    rlp: undefined,
-  };
+  return { address: new Uint8Array(), topics: [], data: new Uint8Array() };
 }
 
 export const Log = {
@@ -895,24 +1041,6 @@ export const Log = {
     }
     if (message.data.length !== 0) {
       writer.uint32(26).bytes(message.data);
-    }
-    if (message.index !== 0) {
-      writer.uint32(32).uint32(message.index);
-    }
-    if (message.blockIndex !== 0) {
-      writer.uint32(40).uint32(message.blockIndex);
-    }
-    if (message.blockHash.length !== 0) {
-      writer.uint32(50).bytes(message.blockHash);
-    }
-    if (message.transactionIndex !== 0) {
-      writer.uint32(56).uint32(message.transactionIndex);
-    }
-    if (message.transactionHash.length !== 0) {
-      writer.uint32(66).bytes(message.transactionHash);
-    }
-    if (message.rlp !== undefined) {
-      writer.uint32(74).bytes(message.rlp);
     }
     return writer;
   },
@@ -933,24 +1061,6 @@ export const Log = {
         case 3:
           message.data = reader.bytes();
           break;
-        case 4:
-          message.index = reader.uint32();
-          break;
-        case 5:
-          message.blockIndex = reader.uint32();
-          break;
-        case 6:
-          message.blockHash = reader.bytes();
-          break;
-        case 7:
-          message.transactionIndex = reader.uint32();
-          break;
-        case 8:
-          message.transactionHash = reader.bytes();
-          break;
-        case 9:
-          message.rlp = reader.bytes();
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -970,18 +1080,6 @@ export const Log = {
       data: isSet(object.data)
         ? bytesFromBase64(object.data)
         : new Uint8Array(),
-      index: isSet(object.index) ? Number(object.index) : 0,
-      blockIndex: isSet(object.blockIndex) ? Number(object.blockIndex) : 0,
-      blockHash: isSet(object.blockHash)
-        ? bytesFromBase64(object.blockHash)
-        : new Uint8Array(),
-      transactionIndex: isSet(object.transactionIndex)
-        ? Number(object.transactionIndex)
-        : 0,
-      transactionHash: isSet(object.transactionHash)
-        ? bytesFromBase64(object.transactionHash)
-        : new Uint8Array(),
-      rlp: isSet(object.rlp) ? bytesFromBase64(object.rlp) : undefined,
     };
   },
 
@@ -1002,24 +1100,6 @@ export const Log = {
       (obj.data = base64FromBytes(
         message.data !== undefined ? message.data : new Uint8Array()
       ));
-    message.index !== undefined && (obj.index = Math.round(message.index));
-    message.blockIndex !== undefined &&
-      (obj.blockIndex = Math.round(message.blockIndex));
-    message.blockHash !== undefined &&
-      (obj.blockHash = base64FromBytes(
-        message.blockHash !== undefined ? message.blockHash : new Uint8Array()
-      ));
-    message.transactionIndex !== undefined &&
-      (obj.transactionIndex = Math.round(message.transactionIndex));
-    message.transactionHash !== undefined &&
-      (obj.transactionHash = base64FromBytes(
-        message.transactionHash !== undefined
-          ? message.transactionHash
-          : new Uint8Array()
-      ));
-    message.rlp !== undefined &&
-      (obj.rlp =
-        message.rlp !== undefined ? base64FromBytes(message.rlp) : undefined);
     return obj;
   },
 
@@ -1028,12 +1108,6 @@ export const Log = {
     message.address = object.address ?? new Uint8Array();
     message.topics = object.topics?.map((e) => e) || [];
     message.data = object.data ?? new Uint8Array();
-    message.index = object.index ?? 0;
-    message.blockIndex = object.blockIndex ?? 0;
-    message.blockHash = object.blockHash ?? new Uint8Array();
-    message.transactionIndex = object.transactionIndex ?? 0;
-    message.transactionHash = object.transactionHash ?? new Uint8Array();
-    message.rlp = object.rlp ?? undefined;
     return message;
   },
 };
@@ -1049,8 +1123,6 @@ function createBaseReceipt(): Receipt {
     cumulativeGasUsed: 0,
     logsBloom: new Uint8Array(),
     logs: [],
-    rlp: undefined,
-    merkleProof: undefined,
   };
 }
 
@@ -1085,12 +1157,6 @@ export const Receipt = {
     }
     for (const v of message.logs) {
       Log.encode(v!, writer.uint32(74).fork()).ldelim();
-    }
-    if (message.rlp !== undefined) {
-      writer.uint32(82).bytes(message.rlp);
-    }
-    if (message.merkleProof !== undefined) {
-      Proof.encode(message.merkleProof, writer.uint32(90).fork()).ldelim();
     }
     return writer;
   },
@@ -1129,12 +1195,6 @@ export const Receipt = {
         case 9:
           message.logs.push(Log.decode(reader, reader.uint32()));
           break;
-        case 10:
-          message.rlp = reader.bytes();
-          break;
-        case 11:
-          message.merkleProof = Proof.decode(reader, reader.uint32());
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -1166,10 +1226,6 @@ export const Receipt = {
       logs: Array.isArray(object?.logs)
         ? object.logs.map((e: any) => Log.fromJSON(e))
         : [],
-      rlp: isSet(object.rlp) ? bytesFromBase64(object.rlp) : undefined,
-      merkleProof: isSet(object.merkleProof)
-        ? Proof.fromJSON(object.merkleProof)
-        : undefined,
     };
   },
 
@@ -1205,13 +1261,6 @@ export const Receipt = {
     } else {
       obj.logs = [];
     }
-    message.rlp !== undefined &&
-      (obj.rlp =
-        message.rlp !== undefined ? base64FromBytes(message.rlp) : undefined);
-    message.merkleProof !== undefined &&
-      (obj.merkleProof = message.merkleProof
-        ? Proof.toJSON(message.merkleProof)
-        : undefined);
     return obj;
   },
 
@@ -1226,11 +1275,6 @@ export const Receipt = {
     message.cumulativeGasUsed = object.cumulativeGasUsed ?? 0;
     message.logsBloom = object.logsBloom ?? new Uint8Array();
     message.logs = object.logs?.map((e) => Log.fromPartial(e)) || [];
-    message.rlp = object.rlp ?? undefined;
-    message.merkleProof =
-      object.merkleProof !== undefined && object.merkleProof !== null
-        ? Proof.fromPartial(object.merkleProof)
-        : undefined;
     return message;
   },
 };
