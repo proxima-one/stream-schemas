@@ -39,6 +39,9 @@
       "path": "packages/base"
     },
     {
+      "path": "packages/eth-block"
+    },
+    {
       "path": "packages/fungible-token"
     },
     {
@@ -46,9 +49,6 @@
     },
     {
       "path": "packages/mangrove"
-    },
-    {
-      "path": "packages/eth-block"
     },
     {
       "path": "packages/nft"
