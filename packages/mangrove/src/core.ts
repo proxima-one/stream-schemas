@@ -1,30 +1,30 @@
-import * as eth from "./eth";
+import {Address, Amount} from "@proximaone/stream-schema-base";
 
 export interface OfferList {
-  inboundToken: eth.Address;
-  outboundToken: eth.Address;
+  inboundToken: Address;
+  outboundToken: Address;
 }
 
 export interface OfferListParams {
   active?: boolean;
-  fee?: eth.UInt;
+  fee?: Amount;
   gasbase?: number; // todo: 24 bits
-  density?: eth.UInt;
+  density?: Amount;
 }
 
 export interface Offer {
   id: OfferId;
   prev: OfferId;
-  wants: eth.UInt;
-  gives: eth.UInt;
+  wants: Amount;
+  gives: Amount;
   gasprice: number; // todo: 16 bits
   gasreq: number; // todo: 24 bits
 }
 
 export interface MangroveParams {
-  governance?: eth.Address;
-  monitor?: eth.Address;
-  vault?: eth.Address;
+  governance?: Address;
+  monitor?: Address;
+  vault?: Address;
   useOracle?: boolean;
   notify?: boolean;
   gasmax?: number; //todo: 24 bits
@@ -34,29 +34,35 @@ export interface MangroveParams {
 
 export interface Order {
   taker: TakerId;
-  takerGot: eth.UInt;
-  takerGave: eth.UInt;
-  penalty: eth.UInt;
+  takerGot: Amount;
+  takerGave: Amount;
+  penalty: Amount;
   takenOffers: TakenOffer[];
 }
 
 export interface TakenOffer {
   id: OfferId;
-  takerWants: eth.UInt;
-  takerGives: eth.UInt;
+  takerWants: Amount;
+  takerGives: Amount;
   failReason?: OfferFailReason;
   posthookFailed?: boolean;
+  posthookData?: string;
 }
 
 export interface OracleState {
-  gasprice?: eth.UInt;
+  gasprice?: Amount;
+}
+
+export interface OrderRef {
+  id: OrderId;
+  offerList: OfferList;
 }
 
 export type MakerId = string;
 export type TakerId = string;
 export type OrderId = string;
 export type OfferId = number;
-export type MangroveId = eth.Address;
+export type MangroveId = Address;
 export type OfferFailReason =
   | "mgv/makerRevert"
   | "mgv/makerAbort"
