@@ -42,6 +42,9 @@
       "path": "packages/eth-block"
     },
     {
+      "path": "packages/exchange-rates"
+    },
+    {
       "path": "packages/fungible-token"
     },
     {
