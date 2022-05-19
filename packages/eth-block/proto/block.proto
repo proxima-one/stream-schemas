@@ -17,8 +17,8 @@ message BlockRLP {
 
 message BlockMerkleProof { 
   bytes header = 1;
-  repeated MerkleEntry transaction_entries = 3;
-  repeated MerkleEntry receipt_entries = 4;
+  repeated MerkleEntry transaction_entries = 2;
+  repeated MerkleEntry receipt_entries = 3;
 }
 
 message MerkleEntry {
