@@ -1,2 +1,2 @@
 export * as streams from "./streams";
-export * as models from "../src/gen/ts/proto/block";
+export * as models from "./gen/ts/proto/block";

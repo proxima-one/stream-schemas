@@ -3,7 +3,7 @@ import {
   BlockRLP,
   BlockMerkleProof,
   BlockHeader,
-} from "../src/gen/ts/proto/block";
+} from "./gen/ts/proto/block";
 import { EventStreamSchema } from "@proximaone/stream-schema-base";
 
 export type EthBlock = Block;
