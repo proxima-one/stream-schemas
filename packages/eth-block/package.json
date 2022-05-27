@@ -12,7 +12,7 @@
     "preset": "<rootDir>/../../"
   },
   "scripts": {
-    "clean": "rimraf dist && rimraf coverage",
+    "clean": "rimraf dist && rimraf coverage  && rimraf tsconfig.tsbuildinfo",
     "format": "prettier --write \"{src,__tests__}/**/*.ts\"",
     "prepublishOnly": "yarn build",
     "generate": "buf generate",
