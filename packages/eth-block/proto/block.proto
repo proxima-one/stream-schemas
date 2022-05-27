@@ -1,0 +1,87 @@
+syntax = "proto3";
+import "google/protobuf/timestamp.proto";
+
+service EthereumTransactions {}
+
+message Block {
+    BlockHeader header = 1;
+    repeated Transaction transactions = 2;
+    repeated Receipt receipts = 3;
+}
+
+message BlockRLP {
+  bytes header = 1;
+  repeated bytes transactions = 2; 
+  repeated bytes receipts = 3;
+}
+
+message BlockMerkleProof { 
+  bytes header = 1;
+  repeated MerkleEntry transaction_entries = 2;
+  repeated MerkleEntry receipt_entries = 3;
+}
+
+message MerkleEntry {
+  bytes entry = 1;
+  bytes proof = 2;
+}
+
+message BlockHeader {
+  bytes parent_hash = 1;
+  bytes uncle_hash = 2; 
+  bytes miner = 3;
+  bytes state_root = 4; 
+  bytes transactions_root = 5; 
+  bytes receipt_root = 6;
+  bytes logs_bloom = 7;
+  BigInt difficulty = 8;
+  uint64 number = 9;
+  uint64 gas_limit = 10;
+  uint64 gas_used = 11;
+  google.protobuf.Timestamp timestamp = 12;
+  bytes extra_data = 13;
+  bytes mix_hash = 14;  
+  bytes nonce = 15;
+  bytes hash = 16;
+  bytes base_fee_per_gas = 17;
+}
+
+
+message Transaction {
+  bytes to = 1;
+  uint64 nonce = 2;
+  BigInt gas_price = 3;
+  uint64 gas_limit = 4;
+  BigInt value = 5;
+  bytes input = 6;
+  bytes v = 7; 
+  bytes r = 8;
+  bytes s = 9;
+  bytes hash = 10;
+  bytes from = 11;
+  uint64 block_number = 12;
+  bytes block_hash = 13;
+}
+
+message BigInt {
+  bytes value = 1;
+}
+
+message Log {
+    bytes address = 1;
+    repeated bytes topics = 2;
+    bytes data = 3;
+}
+
+message Receipt {
+  bytes to = 1;
+  bytes from = 2;
+  uint32 transaction_index = 3;
+  bool status = 4;
+  bytes contract_address = 5;
+  uint64 gas_used = 6;
+  uint64 cumulative_gas_used = 7;
+  bytes logs_bloom = 8;
+  repeated Log logs = 9;
+}
+

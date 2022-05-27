@@ -39,6 +39,9 @@
       "path": "packages/base"
     },
     {
+      "path": "packages/eth-block"
+    },
+    {
       "path": "packages/exchange-rates"
     },
     {
