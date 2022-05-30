@@ -1,7 +1,7 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
 import { OfferId, OrderId, TakerId } from "./core";
 
-export type StrategyEvent = (
+export type MultiUserStrategyEvent = (
   | CreditMgvUser
   | CreditUserTokenBalance
   | DebitMgvUser
@@ -10,7 +10,14 @@ export type StrategyEvent = (
   | OrderSummary) & {
   tx: TxRef;
   id: string;
-  strategy: Address;
+  address: Address;
+};
+
+export type TakerStrategyEvent =
+  OrderSummary & {
+  tx: TxRef;
+  id: string;
+  address: Address;
 };
 
 export interface CreditMgvUser {
