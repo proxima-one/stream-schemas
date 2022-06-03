@@ -4,9 +4,9 @@ import { EventStreamSchema, serializers, TxRefStr as TxRefBase } from "@proximao
 export type TxRef = Pick<TxRefBase, "blockNumber" | "blockHash" | "txHash">;
 
 export type FungibleTokenStreamEvent =
-  | events.NewToken
+  (events.NewToken
   | events.Approval
-  | events.Transfer & {
+  | events.Transfer) & {
   ref?: TxRef
 };
 
