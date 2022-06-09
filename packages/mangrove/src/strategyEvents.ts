@@ -69,5 +69,5 @@ export interface OrderSummary {
   takerGot: Amount;
   takerGave: Amount;
   penalty: Amount;
-  restingOrderId: OrderId;
+  restingOrderId: OfferId;
 }
