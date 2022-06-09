@@ -10,6 +10,8 @@ export type MultiUserStrategyEvent = (
   | NewOwnedOffer) & {
   tx: TxRef;
   id: string;
+  mangroveId: core.MangroveId;
+  chainId: number;
   address: Address;
 };
 
