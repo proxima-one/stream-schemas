@@ -10,7 +10,6 @@ export type MultiUserStrategyEvent = (
   | NewOwnedOffer) & {
   tx: TxRef;
   id: string;
-  mangroveId: core.MangroveId;
   chainId: number;
   address: Address;
 };
@@ -19,7 +18,6 @@ export type TakerStrategyEvent =
   OrderSummary & {
   tx: TxRef;
   id: string;
-  mangroveId: core.MangroveId;
   chainId: number;
   address: Address;
 };
@@ -27,6 +25,7 @@ export type TakerStrategyEvent =
 export interface CreditMgvUser {
   type: "CreditMgvUser";
 
+  mangroveId: core.MangroveId;
   user: Address;
   amount: Amount;
 }
@@ -42,6 +41,7 @@ export interface CreditUserTokenBalance {
 export interface DebitMgvUser {
   type: "DebitMgvUser";
 
+  mangroveId: core.MangroveId;
   user: Address;
   amount: Amount;
 }
@@ -57,6 +57,7 @@ export interface DebitUserTokenBalance {
 export interface NewOwnedOffer {
   type: "NewOwnedOffer";
 
+  mangroveId: core.MangroveId;
   outboundToken: Address;
   inboundToken: Address;
   offerId: OfferId
@@ -66,6 +67,7 @@ export interface NewOwnedOffer {
 export interface OrderSummary {
   type: "OrderSummary";
 
+  mangroveId: core.MangroveId;
   base: Address;
   quote: Address;
   taker: TakerId;
