@@ -1,5 +1,5 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
-import { OfferId, Date, HexString, TakerId } from "./core";
+import { OfferId, Timestamp, HexString, TakerId } from "./core";
 import * as core from "./core";
 
 export type StrategyEvent = (
@@ -34,7 +34,7 @@ export interface OrderSummary {
   takerGives: Amount;
   fillWants: boolean;
   restingOrder: boolean;
-  expiryDate: Date;
+  expiryDate: Timestamp;
   takerGot: Amount;
   takerGave: Amount;
   bounty: Amount;
