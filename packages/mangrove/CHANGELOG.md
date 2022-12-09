@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/proxima-one/stream-schemas/compare/@proximaone/stream-schema-mangrove@0.2.6...@proximaone/stream-schema-mangrove@0.3.0) (2022-12-09)
+
+
+### Features
+
+* rename type ([3aca0da](https://github.com/proxima-one/stream-schemas/commit/3aca0dab78c1575acb47a6242c064c2aab997729))
+
+
+
+
+
 ## [0.2.6](https://github.com/proxima-one/stream-schemas/compare/@proximaone/stream-schema-mangrove@0.2.5...@proximaone/stream-schema-mangrove@0.2.6) (2022-06-30)
 
 **Note:** Version bump only for package @proximaone/stream-schema-mangrove
