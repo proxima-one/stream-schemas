@@ -1,6 +1,6 @@
 import { MangroveEvent } from "./events";
 import { EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
-import { MultiUserStrategyEvent, TakerStrategyEvent } from "./strategyEvents";
+import { StrategyEvent } from "./strategyEvents";
 
 export const mangrove: EventStreamSchema<MangroveEvent> = {
   name: "mangrove.streams.proxima.one",
@@ -8,14 +8,8 @@ export const mangrove: EventStreamSchema<MangroveEvent> = {
   version: "0.2.0",
 }
 
-export const multiUserStrategies: EventStreamSchema<MultiUserStrategyEvent> = {
-  name: "multi-user-strategies.streams.proxima.one",
-  serdes: serializers.json<MultiUserStrategyEvent>(),
-  version: "0.1.0",
-}
-
-export const takerStrategies: EventStreamSchema<TakerStrategyEvent> = {
-  name: "taker-strategies.streams.proxima.one",
-  serdes: serializers.json<TakerStrategyEvent>(),
+export const strategies: EventStreamSchema<StrategyEvent> = {
+  name: "strategies",
+  serdes: serializers.json<StrategyEvent>(),
   version: "0.1.0",
 }

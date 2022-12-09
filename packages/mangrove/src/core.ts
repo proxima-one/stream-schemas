@@ -68,3 +68,5 @@ export type OfferFailReason =
   | "mgv/makerAbort"
   | "mgv/makerTransferFail"
   | "mgv/makerReceiveFail";
+export type Timestamp = number; // expressed in seconds since unix epoch
+export type HexString = string;
