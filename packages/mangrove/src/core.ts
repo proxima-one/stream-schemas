@@ -68,3 +68,5 @@ export type OfferFailReason =
   | "mgv/makerAbort"
   | "mgv/makerTransferFail"
   | "mgv/makerReceiveFail";
+export type Date = number;
+export type HexString = string;

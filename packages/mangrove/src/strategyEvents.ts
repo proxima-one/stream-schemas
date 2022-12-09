@@ -1,58 +1,16 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
-import { OfferId, OrderId, TakerId } from "./core";
+import { OfferId, Date, HexString, TakerId } from "./core";
 import * as core from "./core";
 
-export type MultiUserStrategyEvent = (
-  | CreditMgvUser
-  | CreditUserTokenBalance
-  | DebitMgvUser
-  | DebitUserTokenBalance
-  | NewOwnedOffer) & {
+export type StrategyEvent = (
+  | OrderSummary
+  | NewOwnedOffer
+  | LogIncindent) & {
   tx: TxRef;
   id: string;
   chainId: number;
   address: Address;
 };
-
-export type TakerStrategyEvent =
-  OrderSummary & {
-  tx: TxRef;
-  id: string;
-  chainId: number;
-  address: Address;
-};
-
-export interface CreditMgvUser {
-  type: "CreditMgvUser";
-
-  mangroveId: core.MangroveId;
-  user: Address;
-  amount: Amount;
-}
-
-export interface CreditUserTokenBalance {
-  type: "CreditUserTokenBalance";
-
-  user: Address;
-  token: Address;
-  amount: Amount;
-}
-
-export interface DebitMgvUser {
-  type: "DebitMgvUser";
-
-  mangroveId: core.MangroveId;
-  user: Address;
-  amount: Amount;
-}
-
-export interface DebitUserTokenBalance {
-  type: "DebitUserTokenBalance";
-
-  user: Address;
-  token: Address;
-  amount: Amount;
-}
 
 export interface NewOwnedOffer {
   type: "NewOwnedOffer";
@@ -68,12 +26,29 @@ export interface OrderSummary {
   type: "OrderSummary";
 
   mangroveId: core.MangroveId;
-  base: Address;
-  quote: Address;
+  outboundToken: Address;
+  inboundToken: Address;
   taker: TakerId;
-  selling: boolean;
+  fillOrKill: boolean;
+  takerWants: Amount;
+  takerGives: Amount;
+  fillWants: boolean;
+  restingOrder: boolean;
+  expiryDate: Date;
   takerGot: Amount;
   takerGave: Amount;
-  penalty: Amount;
+  bounty: Amount;
+  fee: Amount;
   restingOrderId: OfferId;
+}
+
+export interface LogIncindent {
+  type: "LogIncindent";
+
+  mangroveId: core.MangroveId;
+  outboundToken: Address;
+  inboundToken: Address;
+  offerId: OfferId;
+  makerData: HexString;
+  mgvData: HexString;
 }
