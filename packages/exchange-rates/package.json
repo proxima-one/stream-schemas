@@ -9,6 +9,9 @@
     "lib"
   ],
   "repository": "https://github.com/proxima-one/stream-schemas",
+  "jest": {
+    "preset": "<rootDir>/../../"
+  },
   "author": "proxima.one",
   "license": "MIT",
   "scripts": {

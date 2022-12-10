@@ -1,0 +1,30 @@
+syntax = "proto3";
+package one.proxima.ft.erc20;
+
+message Event {
+  BlockchainRef ref = 1;
+  oneof eventType {
+    Transfer transfer = 2;
+    Approval approval = 3;
+  }
+}
+
+message Transfer {
+  bytes token = 1;
+  bytes from = 2;
+  bytes to = 3;
+  string value = 4;
+}
+
+message Approval {
+  bytes token = 1;
+  bytes owner = 2;
+  bytes spender = 3;
+  string value = 4;
+}
+
+message BlockchainRef {
+  int64 blockNumber = 1;
+  bytes blockHash = 2;
+  bytes txHash = 3;
+}

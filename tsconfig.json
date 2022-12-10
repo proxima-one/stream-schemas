@@ -33,22 +33,16 @@
   "files": [],
   "references": [
     {
-      "path": "packages/accounts"
+      "path": "packages/base"
     },
     {
-      "path": "packages/base"
+      "path": "packages/eth-base"
     },
     {
       "path": "packages/exchange-rates"
     },
     {
-      "path": "packages/fungible-token"
-    },
-    {
-      "path": "packages/generic-amm-dex"
-    },
-    {
-      "path": "packages/mangrove"
+      "path": "packages/ft"
     },
     {
       "path": "packages/nft"
