@@ -5,7 +5,7 @@ import * as core from "./core";
 export type StrategyEvent = (
   | OrderSummary
   | NewOwnedOffer
-  | LogIncindent) & {
+  | LogIncident) & {
   tx: TxRef;
   id: string;
   chainId: number;
@@ -42,8 +42,8 @@ export interface OrderSummary {
   restingOrderId: OfferId;
 }
 
-export interface LogIncindent {
-  type: "LogIncindent";
+export interface LogIncident {
+  type: "LogIncident";
 
   mangroveId: core.MangroveId;
   outboundToken: Address;
