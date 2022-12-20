@@ -38,6 +38,7 @@ export interface Order {
   takerGave: Amount;
   penalty: Amount;
   takenOffers: TakenOffer[];
+  feePaid: Amount;
 }
 
 export interface TakenOffer {
