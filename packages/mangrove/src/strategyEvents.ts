@@ -1,5 +1,5 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
-import { OfferId, Timestamp, HexString, TakerId } from "./core";
+import { OfferId, Timestamp, HexString, TakerId, OrderId } from "./core";
 import * as core from "./core";
 
 export type StrategyEvent = (
@@ -27,6 +27,7 @@ export interface OrderSummary {
   type: "OrderSummary";
 
   mangroveId: core.MangroveId;
+  orderId: OrderId;
   outboundToken: Address;
   inboundToken: Address;
   taker: TakerId;
