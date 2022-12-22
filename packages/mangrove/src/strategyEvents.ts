@@ -5,6 +5,7 @@ import * as core from "./core";
 export type StrategyEvent = (
   | OrderSummary
   | NewOwnedOffer
+  | SetExpiry
   | LogIncident) & {
   tx: TxRef;
   id: string;
@@ -40,6 +41,15 @@ export interface OrderSummary {
   bounty: Amount;
   fee: Amount;
   restingOrderId: OfferId;
+}
+
+export interface SetExpiry {
+  type: "SetExpiry";
+
+  outboundToken: Address;
+  inboundToken: Address;
+  offerId: OfferId;
+  date: Timestamp;
 }
 
 export interface LogIncident {
