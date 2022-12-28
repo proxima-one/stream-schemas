@@ -12,5 +12,9 @@
     "node_modules",
     "**/*.spec.ts"
   ],
-  "references": []
+  "references": [
+    {
+      "path": "..\\base"
+    }
+  ]
 }
