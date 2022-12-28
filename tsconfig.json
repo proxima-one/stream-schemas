@@ -39,10 +39,16 @@
       "path": "packages/base"
     },
     {
+      "path": "packages/eth-base"
+    },
+    {
       "path": "packages/exchange-rates"
     },
     {
-      "path": "packages/fungible-token"
+      "path": "packages/ft"
+    },
+    {
+      "path": "packages/gas-prices"
     },
     {
       "path": "packages/generic-amm-dex"

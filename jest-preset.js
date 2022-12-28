@@ -1,7 +1,7 @@
 const path = require("path");
 const { lstatSync, readdirSync } = require("fs");
 
-const namespace = "@proxima-one";
+const namespace = "@proximaone";
 // get listing of packages in mono repo
 const basePath = path.resolve(__dirname, "packages");
 const packages = readdirSync(basePath).filter((name) =>
@@ -35,7 +35,7 @@ module.exports = {
     ...packages.reduce(
       (acc, name) => ({
         ...acc,
-        [`${namespace}/${name}$`]: path.resolve(basePath, `${name}/src`),
+        [`${namespace}/stream-schema-${name}$`]: path.resolve(basePath, `${name}/src`),
       }),
       {}
     ),

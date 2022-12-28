@@ -10,11 +10,7 @@
   ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts",
+    "**/*.spec.ts"
   ],
-  "references": [
-    {
-      "path": "../base"
-    }
-  ]
+  "references": []
 }

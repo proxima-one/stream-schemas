@@ -1,6 +1,6 @@
 {
   "name": "@proximaone/stream-schema-exchange-rates",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,9 @@
     "lib"
   ],
   "repository": "https://github.com/proxima-one/stream-schemas",
+  "jest": {
+    "preset": "<rootDir>/../../"
+  },
   "author": "proxima.one",
   "license": "MIT",
   "scripts": {
@@ -19,7 +22,7 @@
     "test": "yarn jest"
   },
   "dependencies": {
-    "@proximaone/stream-schema-base": "^0.2.0"
+    "@proximaone/stream-schema-base": "^0.3.0"
   },
   "publishConfig": {
     "access": "public"

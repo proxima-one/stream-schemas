@@ -1,4 +1,4 @@
-import { Amount, Address, JsonObject, Hash, EventStreamSchema, serializers } from "@proximaone/stream-schema-base";
+import { Amount, Address, JsonObject, Hash, serializers } from "@proximaone/stream-schema-base";
 
 export interface BlockRef extends JsonObject {
   number: number;
@@ -22,8 +22,6 @@ export interface BlockInfo extends JsonObject {
 
 export type GasPriceStreamEvent = BlockInfo;
 
-export const gasPrices: EventStreamSchema<GasPriceStreamEvent> = {
-  name: "gas-prices.streams.proxima.one",
+export const gasPrices = {
   serdes: serializers.json<GasPriceStreamEvent>(),
-  version: "0.1.0",
 }

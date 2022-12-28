@@ -1,6 +1,6 @@
 {
   "name": "@proximaone/stream-schema-base",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,8 +24,7 @@
     "test": "yarn jest"
   },
   "dependencies": {
-    "bignumber.js": "^9.0.1",
-    "long": "^4.0.0"
+    "long": "^5.2.1"
   },
   "devDependencies": {
     "copyfiles": "^2.4.1"
