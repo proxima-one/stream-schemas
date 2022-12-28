@@ -1,4 +1,4 @@
-import { JsonObject, JsonValue } from "./jsonSchema";
+import { JsonObject, JsonValue } from "../model/jsonObject";
 
 export type Hash = string;
 export type Amount = string;

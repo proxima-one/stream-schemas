@@ -39,30 +39,36 @@ config.references = [];
       config.references.push({
         path: workspace.location,
       });
-      const workspaceConfig = JSON.parse(
-        fs.readFileSync(tsconfigPath).toString(),
-      );
-      workspaceConfig.compilerOptions.composite = true;
-      workspaceConfig.references = [];
-      for (const dependency of workspace.workspaceDependencies) {
-        const dependecyLocation = path.resolve(
-          process.cwd(),
-          workspaces[dependency].location,
+      try {
+        const workspaceConfig = JSON.parse(
+          fs.readFileSync(tsconfigPath).toString(),
         );
-        if (
-          fs.existsSync(
-            path.resolve(dependecyLocation, 'tsconfig.json'),
-          )
-        ) {
-          workspaceConfig.references.push({
-            path: path.relative(location, dependecyLocation),
-          });
+
+        workspaceConfig.compilerOptions.composite = true;
+        workspaceConfig.references = [];
+        for (const dependency of workspace.workspaceDependencies) {
+          const dependecyLocation = path.resolve(
+            process.cwd(),
+            workspaces[dependency].location,
+          );
+          if (
+            fs.existsSync(
+              path.resolve(dependecyLocation, 'tsconfig.json'),
+            )
+          ) {
+            workspaceConfig.references.push({
+              path: path.relative(location, dependecyLocation),
+            });
+          }
         }
+        fs.writeFileSync(
+          tsconfigPath,
+          JSON.stringify(workspaceConfig, undefined, 2),
+        );
+      } catch (err) {
+        console.log("Can't update tsconfig at ", tsconfigPath);
+        throw err;
       }
-      fs.writeFileSync(
-        tsconfigPath,
-        JSON.stringify(workspaceConfig, undefined, 2),
-      );
     }
   }
   fs.writeFileSync('tsconfig.json', JSON.stringify(config, undefined, 2));

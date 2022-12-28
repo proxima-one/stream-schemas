@@ -1,4 +1,4 @@
-export * from "./blockchainSchema";
-export * from "./eventStreamSchema";
-export * from "./jsonSchema";
+export * from "./model";
 export * from "./serialization";
+export * from "./lib";
+export * from "./legacy";
