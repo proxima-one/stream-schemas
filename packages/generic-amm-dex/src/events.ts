@@ -47,12 +47,12 @@ export interface SwapEvent extends JsonObject {
 
 export interface MintEvent extends JsonObject {
   type: "mint";
-  lpTransfer?: Transfer;
+  lpTransfers?: Transfer[];
 }
 
 export interface BurnEvent extends JsonObject {
   type: "burn";
-  lpTransfer?: Transfer;
+  lpTransfers?: Transfer[];
 }
 
 
