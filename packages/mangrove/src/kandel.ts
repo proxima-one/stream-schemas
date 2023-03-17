@@ -14,8 +14,6 @@ export type KandelEvent = (
   | SetParams
   | Credit
   | Debit
-  | SetGeometricParams
-  | SetLength
 ) & {
   tx: TxRef;
   id: string;
@@ -53,11 +51,16 @@ export interface AllAsks {
 export interface SetParams {
   type: "SetParams";
   compoundRates?: {
-    base?: number;
-    quote?: number;
-  } | undefined;
+    base: number;
+    quote: number;
+  };
+  geometric?: {
+    spread: number;
+    ratio: number;
+  },
   gasPrice?: Amount;
   gasReq?: Amount;
+  length?: number;
 }
 
 export interface Credit {
@@ -72,17 +75,4 @@ export interface Debit {
 
   token: Address;
   amount: Amount;
-}
-
-export interface SetGeometricParams {
-  type: "SetGeometricParams";
-
-  spread: number;
-  ratio: number;
-}
-
-export interface SetLength {
-  type: "SetLength";
-
-  value: number;
 }
