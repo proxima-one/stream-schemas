@@ -11,9 +11,7 @@ export type SeederEvent = (NewAaveKandel | NewKandel) & {
 export type KandelEvent = (
   | AllBids
   | AllAsks
-  | SetCompoundRates
-  | SetGasprice
-  | SetGasreq
+  | SetParams
   | Credit
   | Debit
   | SetGeometricParams
@@ -52,23 +50,14 @@ export interface AllAsks {
   type: "AllAsks";
 }
 
-export interface SetCompoundRates {
-  type: "SetCompoundRates";
-
-  compoundRateBase: number;
-  compoundRateQuote: number;
-}
-
-export interface SetGasprice {
-  type: "SetGasprice";
-
-  value: Amount;
-}
-
-export interface SetGasreq {
-  type: "SetGasreq";
-
-  value: Amount;
+export interface SetParams {
+  type: "SetParams";
+  compoundRates?: {
+    base?: number;
+    quote?: number;
+  } | undefined;
+  gasPrice?: Amount;
+  gasReq?: Amount;
 }
 
 export interface Credit {
