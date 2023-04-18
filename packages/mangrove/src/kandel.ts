@@ -1,55 +1,18 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
 
 
-export type SeederEvent = (NewAaveKandel | NewKandel) & {
+export type SeederEvent = NewKandel & {
   tx: TxRef;
   id: string;
   chainId: number;
   address: Address;
-};
 
-export type KandelEvent = (
-  | AllBids
-  | AllAsks
-  | SetParams
-  | Credit
-  | Debit
-) & {
-  tx: TxRef;
-  id: string;
-  chainId: number;
-  address: Address;
-};
-
-export interface NewAaveKandel {
-  type: "NewAaveKandel";
-
-  owner: Address;
-  base: Address;
-  quote: Address;
-  aaveKandel: Address;
-  reserveId: Address;
-}
-
-export interface NewKandel {
-  type: "NewKandel";
-
-  owner: Address;
-  base: Address;
-  quote: Address;
-  kandel: Address;
-}
-
-export interface AllBids {
-  type: "AllBids";
-}
-
-export interface AllAsks {
-  type: "AllAsks";
-}
-
-export interface SetParams {
-  type: "SetParams";
+  mangrove?: Address;
+  reserveId?: Address;
+  pair?: {
+    base: Address;
+    quote: Address;
+  }
   compoundRates?: {
     base: number;
     quote: number;
@@ -61,6 +24,38 @@ export interface SetParams {
   gasPrice?: Amount;
   gasReq?: Amount;
   length?: number;
+  admin?: Address;
+  router?: Address;
+};
+
+export type KandelEvent = (
+  | AllBids
+  | AllAsks
+  | Credit
+  | Debit
+) & {
+  tx: TxRef;
+  id: string;
+  chainId: number;
+  address: Address;
+};
+
+export interface NewKandel {
+  type: "NewKandel" | "NewAaveKandel";
+
+  owner: Address;
+  base: Address;
+  quote: Address;
+  kandel: Address;
+  reserveId?: Address;
+}
+
+export interface AllBids {
+  type: "AllBids";
+}
+
+export interface AllAsks {
+  type: "AllAsks";
 }
 
 export interface Credit {
