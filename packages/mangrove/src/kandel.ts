@@ -33,6 +33,10 @@ export type KandelEvent = (
   | AllAsks
   | Credit
   | Debit
+  | PopulateStart
+  | PopulateEnd
+  | RetractStart
+  | RetractEnd
 ) & {
   tx: TxRef;
   id: string;
@@ -70,4 +74,20 @@ export interface Debit {
 
   token: Address;
   amount: Amount;
+}
+
+export interface PopulateStart {
+  type: "PopulateStart";
+}
+
+export interface PopulateEnd {
+  type: "PopulateEnd";
+}
+
+export interface RetractStart {
+  type: "RetractStart";
+}
+
+export interface RetractEnd {
+  type: "RetractEnd";
 }
