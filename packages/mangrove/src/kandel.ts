@@ -11,6 +11,7 @@ export type SeederEvent = NewKandel & {
 export type KandelEvent = (
   | AllBids
   | AllAsks
+  | SetParams
   | Credit
   | Debit
   | PopulateStart
@@ -31,6 +32,29 @@ export interface NewKandel {
   base: Address;
   quote: Address;
   kandel: Address;
+  reserveId?: Address;
+  mangrove?: Address;
+  pair?: {
+    base: Address;
+    quote: Address;
+  }
+  compoundRates?: {
+    base: number;
+    quote: number;
+  };
+  geometric?: {
+    spread: number;
+    ratio: number;
+  },
+  gasPrice?: Amount;
+  gasReq?: Amount;
+  length?: number;
+  admin?: Address;
+  router?: Address;
+}
+
+export interface SetParams {
+  type: "SetParams";
   reserveId?: Address;
   mangrove?: Address;
   pair?: {
