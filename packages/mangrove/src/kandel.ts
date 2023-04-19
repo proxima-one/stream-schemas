@@ -1,4 +1,6 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
+import { OfferId } from "./core";
+import { OfferRetracted, OfferWritten } from "./events";
 
 
 export type SeederEvent = NewKandel & {
@@ -9,15 +11,11 @@ export type SeederEvent = NewKandel & {
 };
 
 export type KandelEvent = (
-  | AllBids
-  | AllAsks
   | SetParams
   | Credit
   | Debit
-  | PopulateStart
-  | PopulateEnd
-  | RetractStart
-  | RetractEnd
+  | Populate
+  | Retract
 ) & {
   tx: TxRef;
   id: string;
@@ -32,25 +30,7 @@ export interface NewKandel {
   base: Address;
   quote: Address;
   kandel: Address;
-  reserveId?: Address;
-  mangrove?: Address;
-  pair?: {
-    base: Address;
-    quote: Address;
-  }
-  compoundRates?: {
-    base: number;
-    quote: number;
-  };
-  geometric?: {
-    spread: number;
-    ratio: number;
-  },
-  gasPrice?: Amount;
-  gasReq?: Amount;
-  length?: number;
-  admin?: Address;
-  router?: Address;
+  params: SetParams;
 }
 
 export interface SetParams {
@@ -76,12 +56,12 @@ export interface SetParams {
   router?: Address;
 }
 
-export interface AllBids {
-  type: "AllBids";
-}
+export interface SetIndexMapping {
+  type: "SetIndexMapping";
 
-export interface AllAsks {
-  type: "AllAsks";
+  ba: number;
+  index: number;
+  offerId: OfferId;
 }
 
 export interface Credit {
@@ -98,18 +78,13 @@ export interface Debit {
   amount: Amount;
 }
 
-export interface PopulateStart {
-  type: "PopulateStart";
+export interface Populate {
+  type: "Populate";
+  offers: OfferWritten[];
+  indexMapping: SetIndexMapping[];
 }
 
-export interface PopulateEnd {
-  type: "PopulateEnd";
-}
-
-export interface RetractStart {
-  type: "RetractStart";
-}
-
-export interface RetractEnd {
-  type: "RetractEnd";
+export interface Retract {
+  type: "Retract";
+  offers: OfferRetracted[]
 }
