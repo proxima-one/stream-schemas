@@ -6,26 +6,6 @@ export type SeederEvent = NewKandel & {
   id: string;
   chainId: number;
   address: Address;
-
-  mangrove?: Address;
-  reserveId?: Address;
-  pair?: {
-    base: Address;
-    quote: Address;
-  }
-  compoundRates?: {
-    base: number;
-    quote: number;
-  };
-  geometric?: {
-    spread: number;
-    ratio: number;
-  },
-  gasPrice?: Amount;
-  gasReq?: Amount;
-  length?: number;
-  admin?: Address;
-  router?: Address;
 };
 
 export type KandelEvent = (
@@ -52,6 +32,24 @@ export interface NewKandel {
   quote: Address;
   kandel: Address;
   reserveId?: Address;
+  mangrove?: Address;
+  pair?: {
+    base: Address;
+    quote: Address;
+  }
+  compoundRates?: {
+    base: number;
+    quote: number;
+  };
+  geometric?: {
+    spread: number;
+    ratio: number;
+  },
+  gasPrice?: Amount;
+  gasReq?: Amount;
+  length?: number;
+  admin?: Address;
+  router?: Address;
 }
 
 export interface AllBids {
