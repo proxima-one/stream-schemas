@@ -30,6 +30,7 @@ export interface NewKandel {
   base: Address;
   quote: Address;
   kandel: Address;
+  reserveId: Address;
   params: SetParams;
 }
 
