@@ -1,7 +1,9 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
+import { OfferId } from "./core";
+import { OfferRetracted, OfferWritten } from "./events";
 
 
-export type SeederEvent = (NewAaveKandel | NewKandel) & {
+export type SeederEvent = NewKandel & {
   tx: TxRef;
   id: string;
   chainId: number;
@@ -9,11 +11,11 @@ export type SeederEvent = (NewAaveKandel | NewKandel) & {
 };
 
 export type KandelEvent = (
-  | AllBids
-  | AllAsks
   | SetParams
   | Credit
   | Debit
+  | Populate
+  | Retract
 ) & {
   tx: TxRef;
   id: string;
@@ -21,35 +23,25 @@ export type KandelEvent = (
   address: Address;
 };
 
-export interface NewAaveKandel {
-  type: "NewAaveKandel";
-
-  owner: Address;
-  base: Address;
-  quote: Address;
-  aaveKandel: Address;
-  reserveId: Address;
-}
-
 export interface NewKandel {
-  type: "NewKandel";
+  type: "NewKandel" | "NewAaveKandel";
 
   owner: Address;
   base: Address;
   quote: Address;
   kandel: Address;
-}
-
-export interface AllBids {
-  type: "AllBids";
-}
-
-export interface AllAsks {
-  type: "AllAsks";
+  reserveId: Address;
+  params: SetParams;
 }
 
 export interface SetParams {
   type: "SetParams";
+  reserveId?: Address;
+  mangrove?: Address;
+  pair?: {
+    base: Address;
+    quote: Address;
+  }
   compoundRates?: {
     base: number;
     quote: number;
@@ -61,6 +53,16 @@ export interface SetParams {
   gasPrice?: Amount;
   gasReq?: Amount;
   length?: number;
+  admin?: Address;
+  router?: Address;
+}
+
+export interface SetIndexMapping {
+  type: "SetIndexMapping";
+
+  ba: number;
+  index: number;
+  offerId: OfferId;
 }
 
 export interface Credit {
@@ -75,4 +77,15 @@ export interface Debit {
 
   token: Address;
   amount: Amount;
+}
+
+export interface Populate {
+  type: "Populate";
+  offers: OfferWritten[];
+  indexMapping: SetIndexMapping[];
+}
+
+export interface Retract {
+  type: "Retract";
+  offers: OfferRetracted[]
 }
