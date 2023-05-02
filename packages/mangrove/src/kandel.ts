@@ -1,6 +1,7 @@
 import { Address, Amount, TxRef } from "@proximaone/stream-schema-base";
 import { OfferId } from "./core";
 import { OfferRetracted, OfferWritten } from "./events";
+import * as core from "./core";
 
 
 export type SeederEvent = NewKandel & {
@@ -26,6 +27,7 @@ export type KandelEvent = (
 export interface NewKandel {
   type: "NewKandel" | "NewAaveKandel";
 
+  mangroveId: core.MangroveId;
   owner: Address;
   base: Address;
   quote: Address;
