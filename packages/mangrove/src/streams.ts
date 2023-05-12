@@ -1,7 +1,7 @@
 import { MangroveEvent } from "./events";
 import { serializers } from "@proximaone/stream-schema-base";
 import { StrategyEvent } from "./strategyEvents";
-import { KandelEvent, SeederEvent } from "./kandel";
+import { KandelEvent } from "./kandel";
 
 export const mangrove = {
   serdes: serializers.json<MangroveEvent>()
@@ -12,5 +12,5 @@ export const strategies = {
 }
 
 export const kandel = {
-  serdes: serializers.json<KandelEvent|SeederEvent>(),
+  serdes: serializers.json<KandelEvent>(),
 }
