@@ -3,20 +3,14 @@ import { OfferId } from "./core";
 import { OfferRetracted, OfferWritten } from "./events";
 import * as core from "./core";
 
-
-export type SeederEvent = NewKandel & {
-  tx: TxRef;
-  id: string;
-  chainId: number;
-  address: Address;
-};
-
 export type KandelEvent = (
+  | NewKandel
   | SetParams
   | Credit
   | Debit
   | Populate
   | Retract
+  | SetIndexMapping
 ) & {
   tx: TxRef;
   id: string;
