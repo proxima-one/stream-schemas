@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/proxima-one/stream-schemas/compare/@proximaone/stream-schema-mangrove@0.3.10...@proximaone/stream-schema-mangrove@0.4.0) (2023-05-16)
+
+
+### Features
+
+* SetIndexMapping event added ([#26](https://github.com/proxima-one/stream-schemas/issues/26)) ([35b75d7](https://github.com/proxima-one/stream-schemas/commit/35b75d7655d169afe0f3c5d9c6b6a52c77e5470d))
+
+
+
+
+
 ## [0.3.10](https://github.com/proxima-one/stream-schemas/compare/@proximaone/stream-schema-mangrove@0.3.9...@proximaone/stream-schema-mangrove@0.3.10) (2023-05-02)
 
 **Note:** Version bump only for package @proximaone/stream-schema-mangrove

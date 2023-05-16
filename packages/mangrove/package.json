@@ -1,6 +1,6 @@
 {
   "name": "@proximaone/stream-schema-mangrove",
-  "version": "0.3.10",
+  "version": "0.4.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
