@@ -70,6 +70,7 @@ export interface OfferRetracted {
 
   offerList: core.OfferList;
   offerId: core.OfferId;
+  deprovision?: boolean;
 }
 
 export interface OrderCompleted {
