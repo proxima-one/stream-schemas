@@ -1,9 +1,9 @@
 import { TxRef } from "@proximaone/stream-schema-base";
 
-export type MgvOracleEvent = MgvOracleBaseEvent & (SetGasPrice | SetDensity)
+export type MgvOracleEvent = MgvOracleBaseEvent & (SetGasprice | SetDensity)
 
-export type SetGasPrice = {
-    type: "SetGasPrice";
+export type SetGasprice = {
+    type: "SetGasprice";
     parameters: {
         gasPrice: string;
     }
